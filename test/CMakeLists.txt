@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.14...3.19)
+cmake_minimum_required(VERSION 3.14...3.20)
 
 project(
-  GreeterTests
+  MathFunctionsTests
   VERSION 1
   LANGUAGES CXX
 )
@@ -18,54 +18,41 @@ include(../cmake/tools.cmake)
 # ---- Dependencies ----
 
 include(../cmake/CPM.cmake)
-CPMUsePackageLock(package-lock.cmake)
 
-CPMAddPackage(
-  NAME doctest
-  GITHUB_REPOSITORY onqtam/doctest
-  GIT_TAG 2.4.5
-)
+# CPMAddPackage( NAME doctest GITHUB_REPOSITORY onqtam/doctest GIT_TAG 2.4.5)
 
 if(TEST_INSTALLED_VERSION)
-  find_package(Greeter ${PROJECT_VERSION} REQUIRED)
+  find_package(MathFunctions ${PROJECT_VERSION} REQUIRED)
 else()
-  CPMAddPackage(NAME Greeter SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
+  CPMAddPackage(NAME MathFunctions SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
 endif()
-
-CPMAddPackage(
-  NAME Format.cmake
-  GITHUB_REPOSITORY TheLartians/Format.cmake
-  VERSION 1.6
-  OPTIONS # enable cmake formatting
-          "FORMAT_CHECK_CMAKE ON"
-)
 
 # ---- Create binary ----
 
-file(GLOB sources CONFIGURE_DEPENDS source/*.cpp)
-add_executable(GreeterTests ${sources})
-target_link_libraries(GreeterTests doctest::doctest Greeter::Greeter)
-set_target_properties(GreeterTests PROPERTIES CXX_STANDARD ${CMAKE_CXX_STANDARD})
+file(GLOB sources CONFIGURE_DEPENDS source/*.cxx)
+add_executable(MathFunctionsTests ${sources})
+# target_link_libraries(MathFunctionsTests doctest::doctest MathFunctions::MathFunctions)
+set_target_properties(MathFunctionsTests PROPERTIES CXX_STANDARD ${CMAKE_CXX_STANDARD})
 
 # enable compiler warnings
 if(NOT TEST_INSTALLED_VERSION)
   if(CMAKE_CXX_COMPILER_ID MATCHES "(Apple)?[Cc]lang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-    target_compile_options(Greeter PUBLIC -Wall -Wextra -Werror)
+    target_compile_options(MathFunctions PUBLIC -Wall -Wextra -Werror)
   elseif(MSVC)
-    target_compile_options(Greeter PUBLIC /W4 /WX)
-    target_compile_definitions(GreeterTests PUBLIC DOCTEST_CONFIG_USE_STD_HEADERS)
+    target_compile_options(MathFunctions PUBLIC /W4 /WX)
+    target_compile_definitions(MathFunctionsTests PUBLIC DOCTEST_CONFIG_USE_STD_HEADERS)
   endif()
 endif()
 
-# ---- Add GreeterTests ----
+# ---- Add MathFunctionsTests ----
 
 enable_testing()
 
-add_test(NAME greeterTests COMMAND GreeterTests -s false)
+add_test(NAME MathFunctionsTests COMMAND MathFunctionsTests -s false)
 
 # ---- code coverage ----
 
-if(ENABLE_TEST_COVERAGE AND NOT Greeter_FOUND)
-  target_compile_options(Greeter PUBLIC -O0 -g -fprofile-arcs -ftest-coverage)
-  target_link_options(Greeter PUBLIC -fprofile-arcs -ftest-coverage)
+if(ENABLE_TEST_COVERAGE AND NOT MathFunctions_FOUND)
+  target_compile_options(MathFunctions PUBLIC -O0 -g -fprofile-arcs -ftest-coverage)
+  target_link_options(MathFunctions PUBLIC -fprofile-arcs -ftest-coverage)
 endif()

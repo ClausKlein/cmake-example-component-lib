@@ -1,15 +1,14 @@
-cmake_minimum_required(VERSION 3.14...3.19)
+cmake_minimum_required(VERSION 3.14...3.20)
 
-project(GreeterDocs)
+project(MathFunctionsDocs)
 
 # ---- Dependencies ----
 
 include(../cmake/CPM.cmake)
-CPMUsePackageLock(package-lock.cmake)
 
 include(../cmake/options.cmake)
 
-CPMAddPackage(NAME Greeter SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
+CPMAddPackage(NAME MathFunctions SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
 
 CPMAddPackage(
   NAME MCSS
@@ -21,8 +20,8 @@ CPMAddPackage(
 # ---- Doxygen variables ----
 
 # set Doxyfile variables
-set(DOXYGEN_PROJECT_NAME Greeter)
-set(DOXYGEN_PROJECT_VERSION ${Greeter_VERSION})
+set(DOXYGEN_PROJECT_NAME MathFunctions)
+set(DOXYGEN_PROJECT_VERSION ${MathFunctions_VERSION})
 set(DOXYGEN_PROJECT_ROOT "${CMAKE_CURRENT_LIST_DIR}/..")
 set(DOXYGEN_OUTPUT_DIRECTORY doxygen)
 

@@ -3,7 +3,7 @@ if(NOT PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   return()
 endif()
 
-option(BUILD_SHARED_LIBS "Create shared libraries" YES)
+option(BUILD_SHARED_LIBS "Create shared libraries" NOT_YET)
 
 # Set default visibility to hidden for all targets
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)

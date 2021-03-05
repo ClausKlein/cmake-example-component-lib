@@ -1,0 +1,15 @@
+@PACKAGE_INIT@
+
+if(@COMPONET_TARGETS_ENABLED@)
+  set(_supported_components Addition SquareRoot MathFunctions)
+
+  foreach(_comp ${MathFunctions_FIND_COMPONENTS})
+    if(NOT _comp IN_LIST _supported_components)
+      set(MathFunctions_FOUND False)
+      set(MathFunctions_NOT_FOUND_MESSAGE "Unsupported component: ${_comp}")
+    endif()
+    include("${CMAKE_CURRENT_LIST_DIR}/MathFunctions${_comp}Targets.cmake")
+  endforeach()
+else()
+  include("${CMAKE_CURRENT_LIST_DIR}/MathFunctionsTargets.cmake")
+endif()
