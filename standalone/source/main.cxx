@@ -1,9 +1,9 @@
 // A simple program that outputs the square root of a number
+#include <mathfunctions/Addition.h>
+#include <mathfunctions/SquareRoot.h>
+
 #include <iostream>
 #include <string>
-
-#include "mathfunctions/Addition.h"
-#include "mathfunctions/SquareRoot.h"
 
 int main(int argc, char* argv[]) {
   if (argc < 2) {

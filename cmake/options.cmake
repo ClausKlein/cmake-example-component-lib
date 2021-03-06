@@ -3,16 +3,19 @@ if(NOT PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   return()
 endif()
 
-option(BUILD_SHARED_LIBS "Create shared libraries" NOT_YET)
+# ---------------------------------------------------------------------------
+# SECTION: LIBS
+# ---------------------------------------------------------------------------
+# Note: same postfix as fmt and spdlog! CK
+set(CMAKE_DEBUG_POSTFIX d)
 
-# Set default visibility to hidden for all targets
-set(CMAKE_CXX_VISIBILITY_PRESET hidden)
-set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
+option(BUILD_SHARED_LIBS "Create shared libraries" NOT_YET)
 
 # build the dynamic libraries and executables together at bin directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+# ---------------------------------------------------------------------------
 
 if(NOT DEFINED CMAKE_CXX_STANDARD)
   option(CXX_STANDARD_REQUIRED "Require c++ standard" YES)
@@ -48,3 +51,5 @@ option(CMAKE_EXPORT_COMPILE_COMMANDS "support clang-tidy, cppcheck, ..." YES)
 if(CMAKE_EXPORT_COMPILE_COMMANDS)
   set(CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES ${CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES})
 endif()
+
+include(${CMAKE_CURRENT_LIST_DIR}/WarningsAsErrors.cmake)

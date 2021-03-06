@@ -22,7 +22,11 @@ include(../cmake/CPM.cmake)
 # CPMAddPackage( NAME doctest GITHUB_REPOSITORY onqtam/doctest GIT_TAG 2.4.5)
 
 if(TEST_INSTALLED_VERSION)
-  find_package(MathFunctions ${PROJECT_VERSION} REQUIRED)
+  find_package(
+    MathFunctions ${PROJECT_VERSION}
+    COMPONENTS Addition SquareRoot
+    REQUIRED
+  )
 else()
   CPMAddPackage(NAME MathFunctions SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
 endif()
@@ -32,23 +36,14 @@ endif()
 file(GLOB sources CONFIGURE_DEPENDS source/*.cxx)
 add_executable(MathFunctionsTests ${sources})
 # target_link_libraries(MathFunctionsTests doctest::doctest MathFunctions::MathFunctions)
+target_link_libraries(MathFunctionsTests MathFunctions::Addition MathFunctions::SquareRoot)
 set_target_properties(MathFunctionsTests PROPERTIES CXX_STANDARD ${CMAKE_CXX_STANDARD})
-
-# enable compiler warnings
-if(NOT TEST_INSTALLED_VERSION)
-  if(CMAKE_CXX_COMPILER_ID MATCHES "(Apple)?[Cc]lang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-    target_compile_options(MathFunctions PUBLIC -Wall -Wextra -Werror)
-  elseif(MSVC)
-    target_compile_options(MathFunctions PUBLIC /W4 /WX)
-    target_compile_definitions(MathFunctionsTests PUBLIC DOCTEST_CONFIG_USE_STD_HEADERS)
-  endif()
-endif()
 
 # ---- Add MathFunctionsTests ----
 
 enable_testing()
 
-add_test(NAME MathFunctionsTests COMMAND MathFunctionsTests -s false)
+add_test(NAME MathFunctionsTests COMMAND MathFunctionsTests 2.0)
 
 # ---- code coverage ----
 
