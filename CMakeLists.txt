@@ -42,13 +42,15 @@ CPMAddPackage(
   OPTIONS "FMT_INSTALL YES"
 )
 
-set(COMPONET_TARGETS_ENABLED YES)
-set(namespace ${PROJECT_NAME})
-if(DEFINED COMPONET_TARGETS_ENABLED)
-  message(STATUS "Install only 1 cmake Component ${namespace}Targets.cmake config file")
+# XXX set(COMPONET_TARGETS_ENABLED YES)
+set(PROJECT_NAMESPACE ${PROJECT_NAME})
+if(NOT DEFINED COMPONET_TARGETS_ENABLED)
+  message(STATUS "Install only 1 cmake Component ${PROJECT_NAMESPACE}Targets.cmake config file")
+  set(NAMESPACE_HEADER_LOCATION ${CMAKE_CURRENT_LIST_DIR}/include)
 
   add_subdirectory(source/Addition)
   add_subdirectory(source/SquareRoot)
+  add_subdirectory(source/MathFunctions)
 
   # NO! include(source/CMakeLists.txt)
 
@@ -68,18 +70,20 @@ if(DEFINED COMPONET_TARGETS_ENABLED)
     INSTALL_DESTINATION lib/cmake/MathFunctions
   )
 
-  # install config files
-  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake
-                ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfigVersion.cmake
-          DESTINATION lib/cmake/MathFunctions
-  )
-
   # generate the export targets for the build tree. Note: This needs to be done after the all
   # install(TARGETS ...) commands!
   export(
     EXPORT MathFunctionsTargets
-    FILE ${CMAKE_CURRENT_BINARY_DIR}/cmake/MathFunctionsTargets.cmake
+    FILE ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsTargets.cmake
     NAMESPACE MathFunctions::
+  )
+
+  # install cmake project config files
+  install(
+    FILES ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake
+          ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfigVersion.cmake
+          ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsTargets.cmake
+    DESTINATION lib/cmake/MathFunctions
   )
 else()
   # ---- Add source files ----
@@ -87,7 +91,7 @@ else()
   # Note: globbing sources is considered bad practice as CMake's generators may not detect new files
   # automatically. Keep that in mind when changing files, or explicitly mention them here.
   file(GLOB_RECURSE headers CONFIGURE_DEPENDS include/*.h)
-  file(GLOB_RECURSE sources CONFIGURE_DEPENDS source/*.cxx)
+  file(GLOB_RECURSE sources CONFIGURE_DEPENDS source/MathFunctions/*.cxx)
 
   # ---- Create library ----
 
