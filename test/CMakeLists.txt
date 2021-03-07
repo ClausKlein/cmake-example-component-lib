@@ -31,6 +31,14 @@ else()
   CPMAddPackage(NAME MathFunctions SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
 endif()
 
+CPMAddPackage(
+  NAME Format.cmake
+  GITHUB_REPOSITORY TheLartians/Format.cmake
+  VERSION 1.6
+  OPTIONS # enable cmake formatting
+          "FORMAT_CHECK_CMAKE ON"
+)
+
 # ---- Create binary ----
 
 file(GLOB sources CONFIGURE_DEPENDS source/*.cxx)
