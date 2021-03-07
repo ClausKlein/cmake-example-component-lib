@@ -1,5 +1,5 @@
 #pragma once
 
 namespace MathFunctions {
-  double add(double x, double y);
+  auto add(double x, double y) -> double;
 }

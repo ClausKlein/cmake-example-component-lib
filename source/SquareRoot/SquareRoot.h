@@ -1,5 +1,5 @@
 #pragma once
 
 namespace MathFunctions {
-  double sqrt(double x);
+  auto sqrt(double x) -> double;
 }

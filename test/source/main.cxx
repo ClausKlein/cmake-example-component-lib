@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 
-int main(int argc, char* argv[]) {
+auto main(int argc, char* argv[]) -> int {
   if (argc < 2) {
     std::cout << "Usage: " << *argv << " number" << std::endl;
     return 1;

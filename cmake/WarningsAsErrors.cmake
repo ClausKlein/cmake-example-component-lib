@@ -2,7 +2,7 @@
 # https://raw.githubusercontent.com/approvals/ApprovalTests.cpp/master/CMake/WarningsAsErrors.cmake
 #
 # modified to use it global, but optonal by CK
-option(WarningsAsErrors "To be real pedantic!" NO)
+option(WarningsAsErrors "To be real pedantic!" YES)
 if(WarningsAsErrors)
   if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND CMAKE_CXX_SIMULATE_ID MATCHES "MSVC")
     add_compile_options(/W4 /WX)
