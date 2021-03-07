@@ -7,8 +7,7 @@ add_library(MathFunctions::MathFunctions ALIAS MathFunctions)
 
 # add include directories
 target_include_directories(
-  MathFunctions PUBLIC $<BUILD_INTERFACE:${NAMESPACE_HEADER_LOCATION}>
-                       $<INSTALL_INTERFACE:include>
+  MathFunctions PUBLIC $<BUILD_INTERFACE:${NAMESPACE_HEADER_LOCATION}> $<INSTALL_INTERFACE:include>
 )
 
 # install the target and create export-set
