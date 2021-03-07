@@ -15,7 +15,7 @@ the work required to setup up a modern C++ project.
 - [Modern CMake practices](https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/)
 - [CMake for library authors: Best practice](https://crascit.com/2019/10/16/cppcon-2019-deep-cmake-for-library-authors/)
 - [Modernize C++ using clang-tidy](https://www.kdab.com/clang-tidy-part-1-modernize-source-code-using-c11c14/)
-- [CMake Importing Exporting Guilde](/https://cmake.org/cmake/help/latest/guide/importing-exporting/index.html?highlight=components#adding-components)
+- [CMake Importing Exporting Guilde](https://cmake.org/cmake/help/latest/guide/importing-exporting/index.html?highlight=components#adding-components)
 - Suited for single header libraries and projects of any scale
 - Clean separation of library and executable code
 - Integrated test suite
@@ -52,7 +52,7 @@ once](#build-everything-at-once).
 Use the following command to build and run the executable target.
 
 ```bash
-cmake -Hstandalone -Bbuild/standalone
+cmake -Sstandalone -Bbuild/standalone
 cmake --build build/standalone
 ./build/standalone/MathFunctionsStandalone --help
 ```
@@ -63,7 +63,7 @@ Use the following commands from the project's root directory to run the
 test suite.
 
 ```bash
-cmake -Htest -Bbuild/test
+cmake -Stest -Bbuild/test
 cmake --build build/test
 CTEST_OUTPUT_ON_FAILURE=1 cmake --build build/test --target test
 
@@ -81,7 +81,7 @@ fix C++ and CMake source style.  This requires _clang-format_,
 _cmake-format_ and _pyyaml_ to be installed on the current system.
 
 ```bash
-cmake -Htest -Bbuild/test
+cmake -Stest -Bbuild/test
 
 # view changes
 cmake --build build/test --target format
@@ -97,7 +97,7 @@ See [Format.cmake](https://github.com/TheLartians/Format.cmake) for details.
 To manually build documentation, call the following command.
 
 ```bash
-cmake -Hdocumentation -Bbuild/doc
+cmake -Sdocumentation -Bbuild/doc
 cmake --build build/doc --target GenerateDocs
 # view the docs
 open build/doc/doxygen/html/index.html
@@ -114,7 +114,7 @@ exposes all subprojects to your IDE and avoids redundant builds of the
 library.
 
 ```bash
-cmake -Hall -Bbuild
+cmake -Sall -Bbuild
 cmake --build build
 
 # run tests
