@@ -40,7 +40,7 @@ install:
 
 # test the library
 test: install
-	cmake -S $@ -B $(BUILD_DIR)/$@ ${CMAKE_PRESET} -DCMAKE_BUILD_TYPE=Debug -DTEST_INSTALLED_VERSION=1
+	cmake -S $@ -B $(BUILD_DIR)/$@ ${CMAKE_PRESET} -DTEST_INSTALLED_VERSION=1
 	perl -i.bak -pe 's#-I($$CPM_SOURCE_CACHE)#-isystem $$1#g' $(BUILD_DIR)/$@/compile_commands.json
 	cmake --build $(BUILD_DIR)/$@
 	cmake --build $(BUILD_DIR)/$@ --target $@

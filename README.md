@@ -31,7 +31,7 @@ the work required to setup up a modern C++ project.
 
 ### Adjust the template to your needs
 
-- Use this repo [as a template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) and replace all occurrences of "MathFunctions" in the relevant CMakeLists.txt with the name of your project
+- Use this repo [as a template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) and replace all occurrences of "MathFunctions" in the relevant `CMakeLists.txt` with the name of your project
 - Replace the source files with your own
 - For header-only libraries: see the comments in [CMakeLists.txt](CMakeLists.txt)
 - Add [your project's codecov token](https://docs.codecov.io/docs/quick-start) to your project's github secrets under `CODECOV_TOKEN`
@@ -175,7 +175,7 @@ allow IDEs to see the full scope of the project, the template includes
 the `all` directory that will create a single build for all subprojects.
 Use this as the main directory for best IDE support.
 
-> I see you are using `GLOB` to add source files in CMakeLists.txt. Isn't that evil?
+> I see you are using `GLOB` to add source files in `CMakeLists.txt`. Isn't that evil?
 
 Glob is considered bad because any changes to the source file structure
 [might not be automatically
@@ -184,12 +184,12 @@ by CMake's builders and you will need to manually invoke CMake on
 changes.  I personally prefer the `GLOB` solution for its simplicity, but
 feel free to change it to explicitly listing sources.
 
-> I want create additional targets that depend on my library. Should I modify the main CMakeLists to include them?
+> I want create additional targets that depend on my library. Should I modify the main `CMakeLists.txt` to include them?
 
-Avoid including derived projects from the libraries CMakeLists (even
+Avoid including derived projects from the libraries `CMakeLists.txt` (even
 though it is a common sight in the C++ world), as this effectively
 inverts the dependency tree and makes the build system hard to reason
-about.  Instead, create a new directory or project with a CMakeLists that
+about.  Instead, create a new directory or project with a `CMakeLists.txt` that
 adds the library as a dependency (e.g. like the
 [standalone](standalone/CMakeLists.txt) directory).  Depending type it
 might make sense move these components into a separate repositories and
@@ -228,6 +228,3 @@ more information on setting up CPack installers.
 
 Perhaps the [MiniCppStarter](https://github.com/TheLartians/MiniCppStarter) is something for you!
 
-## Coming soon
-
-- Script to automatically adjust the template for new projects
