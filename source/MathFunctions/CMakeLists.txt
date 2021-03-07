@@ -21,7 +21,11 @@ install(
   DESTINATION include
 )
 
-if(DEFINED COMPONET_TARGETS_ENABLED)
+# install header file
+# string(TOLOWER ${PROJECT_NAMESPACE} HEADER_LOCATION)
+# install(FILES ${NAMESPACE_HEADER_LOCATION}/${PROJECT_NAMESPACE}/MathFunctions.h DESTINATION include/${HEADER_LOCATION})
+
+if(DEFINED COMPONENT_TARGETS_ENABLED)
   # generate and install export file
   install(
     EXPORT MathFunctionsTargets

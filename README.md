@@ -54,7 +54,7 @@ Use the following command to build and run the executable target.
 ```bash
 cmake -Hstandalone -Bbuild/standalone
 cmake --build build/standalone
-./build/standalone/main --help
+./build/standalone/MathFunctionsStandalone --help
 ```
 
 ### Build and run test suite
@@ -68,7 +68,7 @@ cmake --build build/test
 CTEST_OUTPUT_ON_FAILURE=1 cmake --build build/test --target test
 
 # or simply call the executable:
-./build/test/main
+./build/test/MathFunctionsTest
 ```
 
 To collect code coverage information, run CMake with the
@@ -118,11 +118,11 @@ cmake -Hall -Bbuild
 cmake --build build
 
 # run tests
-./build/test/main
+./build/test/MathFunctionsTest
 # format code
 cmake --build build --target fix-format
 # run standalone
-./build/standalone/main --help
+./build/standalone/MathFunctionsStandalone --help
 # build docs
 cmake --build build --target GenerateDocs
 ```

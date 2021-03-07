@@ -23,9 +23,9 @@ install(
 
 # install header file
 # string(TOLOWER ${PROJECT_NAMESPACE} HEADER_LOCATION)
-# install(FILES Addition.h DESTINATION include/${HEADER_LOCATION})
+# install(FILES ${NAMESPACE_HEADER_LOCATION}/${PROJECT_NAMESPACE}/Addition.h DESTINATION include/${HEADER_LOCATION})
 
-if(DEFINED COMPONET_TARGETS_ENABLED)
+if(DEFINED COMPONENT_TARGETS_ENABLED)
   # generate and install export file
   install(
     EXPORT ${PROJECT_NAMESPACE}Targets
