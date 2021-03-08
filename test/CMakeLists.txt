@@ -41,8 +41,7 @@ CPMAddPackage(
 
 # ---- Create binary ----
 
-file(GLOB sources CONFIGURE_DEPENDS source/*.cxx)
-add_executable(MathFunctionsTests ${sources})
+add_executable(MathFunctionsTests source/main.cxx)
 # target_link_libraries(MathFunctionsTests doctest::doctest MathFunctions::MathFunctions)
 target_link_libraries(MathFunctionsTests MathFunctions::Addition MathFunctions::SquareRoot)
 set_target_properties(MathFunctionsTests PROPERTIES CXX_STANDARD ${CMAKE_CXX_STANDARD})

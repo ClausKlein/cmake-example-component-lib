@@ -24,9 +24,9 @@ endif()
 include(cmake/options.cmake)
 
 # ---- Add dependencies via CPM ----
-# see https://github.com/cpm-cmake/CPM.cmake for more info
 
 include(cmake/CPM.cmake)
+# see https://github.com/cpm-cmake/CPM.cmake for more info
 
 # PackageProject.cmake will be used to make our target installable
 CPMAddPackage(
@@ -42,7 +42,7 @@ CPMAddPackage(
   OPTIONS "FMT_INSTALL YES"
 )
 
-#XXX set(COMPONENT_TARGETS_ENABLED YES)
+set(COMPONENT_TARGETS_ENABLED NO)
 set(PROJECT_NAMESPACE ${PROJECT_NAME})
 set(NAMESPACE_HEADER_LOCATION ${CMAKE_CURRENT_LIST_DIR}/include)
 
@@ -75,32 +75,42 @@ install(
   PATTERN "*.h"
 )
 
+# generate and install export file
+install(
+  EXPORT ${PROJECT_NAMESPACE}Targets
+  FILE ${PROJECT_NAMESPACE}Targets.cmake
+  NAMESPACE ${PROJECT_NAMESPACE}::
+  DESTINATION lib/cmake/${PROJECT_NAMESPACE}
+)
+
 include(CMakePackageConfigHelpers)
 
 # generate the version file for the config file
 write_basic_package_version_file(
-  ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfigVersion.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAMESPACE}ConfigVersion.cmake
   VERSION ${PROJECT_VERSION}
   COMPATIBILITY SameMajorVersion
 )
 
 # create config file
 configure_package_config_file(
-  ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake
-  INSTALL_DESTINATION lib/cmake/MathFunctions
+  ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAMESPACE}Config.cmake
+  INSTALL_DESTINATION lib/cmake/${PROJECT_NAMESPACE}
+  NO_CHECK_REQUIRED_COMPONENTS_MACRO
 )
 
-# generate the export targets for the build tree. Note: This needs to be done after the all
-# install(TARGETS ...) commands!
+# generate the export targets for the build tree. This needs to be done after the all
+# install(TARGETS ...) commands!  Note: The file created by this command is specific to the build
+# tree and should never be installed!
 export(
-  EXPORT MathFunctionsTargets
-  FILE ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsTargets.cmake
-  NAMESPACE MathFunctions::
+  EXPORT ${PROJECT_NAMESPACE}Targets
+  FILE ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAMESPACE}Targets.cmake
+  NAMESPACE ${PROJECT_NAMESPACE}::
 )
 
 # install cmake project config files
-install(
-  FILES ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfigVersion.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsTargets.cmake DESTINATION lib/cmake/MathFunctions
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake
+              ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfigVersion.cmake
+        DESTINATION lib/cmake/MathFunctions
 )
