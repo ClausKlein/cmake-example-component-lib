@@ -19,7 +19,11 @@ include(../cmake/tools.cmake)
 
 include(../cmake/CPM.cmake)
 
-# CPMAddPackage( NAME doctest GITHUB_REPOSITORY onqtam/doctest GIT_TAG 2.4.5)
+CPMAddPackage(
+  NAME ut
+  GITHUB_REPOSITORY boost-ext/ut
+  GIT_TAG 1cc75c234d4005031cee581102a4a6c8b680df0a
+)
 
 if(TEST_INSTALLED_VERSION)
   find_package(
@@ -29,6 +33,7 @@ if(TEST_INSTALLED_VERSION)
   )
 else()
   CPMAddPackage(NAME MathFunctions SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
+  # same as: add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/.. MathFunctions)
 endif()
 
 CPMAddPackage(
@@ -43,7 +48,9 @@ CPMAddPackage(
 
 add_executable(MathFunctionsTests source/main.cxx)
 # target_link_libraries(MathFunctionsTests doctest::doctest MathFunctions::MathFunctions)
-target_link_libraries(MathFunctionsTests MathFunctions::Addition MathFunctions::SquareRoot)
+target_link_libraries(
+  MathFunctionsTests Boost::ut MathFunctions::Addition MathFunctions::SquareRoot
+)
 set_target_properties(MathFunctionsTests PROPERTIES CXX_STANDARD ${CMAKE_CXX_STANDARD})
 
 # ---- Add MathFunctionsTests ----

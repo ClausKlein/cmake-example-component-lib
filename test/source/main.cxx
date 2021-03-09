@@ -1,26 +1,24 @@
-// A simple program that outputs the square root of a number
 #include <mathfunctions/Addition.h>
 #include <mathfunctions/SquareRoot.h>
 
-#include <iostream>
-#include <string>
+// import boost.ut;        // single module (C++20)
+#include <boost/ut.hpp>  // single header
 
-auto main(int argc, char* argv[]) -> int {
-  if (argc < 2) {
-    std::cout << "Usage: " << *argv << " number" << std::endl;
-    return 1;
-  }
-
-  // convert input to double
-  const double inputValue = std::stod(argv[1]);
+auto main() -> int {
+  using namespace boost::ut;
 
   // calculate square root
-  const double sqrt = MathFunctions::sqrt(inputValue);
-  std::cout << "The square root of " << inputValue << " is " << sqrt << std::endl;
+  expect(1.41421356_d == MathFunctions::sqrt(2.0));
+  expect(2.0 == MathFunctions::sqrt(4.0));
+  expect(3.0 == MathFunctions::sqrt(9.0));
+  expect(2.23606797_d == MathFunctions::sqrt(5.0));
+  expect(2.64575131_d == MathFunctions::sqrt(7.0));
+  expect(5.0_d == MathFunctions::sqrt(25.0));
+  expect(0.01_d == MathFunctions::sqrt(0.0001));
+  expect(isnan(MathFunctions::sqrt(-25.0)));
 
   // calculate sum
-  const double sum = MathFunctions::add(inputValue, inputValue);
-  std::cout << inputValue << " + " << inputValue << " = " << sum << std::endl;
-
-  return 0;
+  expect(2.0_d == MathFunctions::add(1.0, 1.0));
+  expect(0.0_d == MathFunctions::add(-1.0, 1.0));
+  expect(0.2_d == MathFunctions::add(0.1, 0.1));
 }
