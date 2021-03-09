@@ -37,7 +37,7 @@ CPMAddPackage(
 
 set(COMPONENT_TARGETS_ENABLED NO)
 set(PROJECT_NAMESPACE ${PROJECT_NAME})
-set(NAMESPACE_HEADER_LOCATION ${PROJECT_SOURCE_DIR}/include)
+set(NAMESPACE_HEADER_LOCATION ${CMAKE_CURRENT_LIST_DIR}/include)
 
 if(NOT COMPONENT_TARGETS_ENABLED)
   message(STATUS "Install only 1 cmake config target ${PROJECT_NAMESPACE}Targets.cmake file")
@@ -58,7 +58,7 @@ string(TOLOWER ${PROJECT_NAME}/${PROJECT_NAMESPACE}_export.h EXPORT_HEADER_LOCAT
 
 # Note: need to generate at source tree! CK
 generate_export_header(
-  ${PROJECT_NAMESPACE} EXPORT_FILE_NAME ${PROJECT_SOURCE_DIR}/include/${EXPORT_HEADER_LOCATION}
+  ${PROJECT_NAMESPACE} EXPORT_FILE_NAME ${CMAKE_CURRENT_LIST_DIR}/include/${EXPORT_HEADER_LOCATION}
 )
 
 # install generated header files
@@ -78,8 +78,8 @@ install(
   PATTERN "*.h"
 )
 
-# Note: This needs to be done after all install(TARGETS ...) commands! generate and install export
-# file
+# Note: This needs to be done after all install(TARGETS ...) commands!
+# generate and install export targets file
 install(
   EXPORT ${PROJECT_NAMESPACE}Targets
   FILE ${PROJECT_NAMESPACE}Targets.cmake
