@@ -47,7 +47,6 @@ CPMAddPackage(
 # ---- Create binary ----
 
 add_executable(MathFunctionsTests source/main.cxx)
-# target_link_libraries(MathFunctionsTests doctest::doctest MathFunctions::MathFunctions)
 target_link_libraries(
   MathFunctionsTests Boost::ut MathFunctions::Addition MathFunctions::SquareRoot
 )
