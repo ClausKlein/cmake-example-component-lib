@@ -2,7 +2,7 @@
 # create a component library like boost
 #
 add_library(
-  SquareRoot SquareRoot.cxx ${NAMESPACE_HEADER_LOCATION}/${PROJECT_NAMESPACE}/SquareRoot.h
+  SquareRoot SquareRoot.cxx ${NAMESPACE_HEADER_LOCATION}/${PROJECT_HEADER_LOCATION}/SquareRoot.h
 )
 
 add_library(${PROJECT_NAMESPACE}::SquareRoot ALIAS SquareRoot)

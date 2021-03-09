@@ -1,7 +1,7 @@
 #
 # create a component library like boost
 #
-add_library(Addition Addition.cxx ${NAMESPACE_HEADER_LOCATION}/${PROJECT_NAMESPACE}/Addition.h)
+add_library(Addition Addition.cxx ${NAMESPACE_HEADER_LOCATION}/${PROJECT_HEADER_LOCATION}/Addition.h)
 
 add_library(${PROJECT_NAMESPACE}::Addition ALIAS Addition)
 

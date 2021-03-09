@@ -2,7 +2,7 @@
 # create a component library like boost
 #
 add_library(
-  MathFunctions MathFunctions.cxx ${NAMESPACE_HEADER_LOCATION}/${PROJECT_NAMESPACE}/MathFunctions.h
+  MathFunctions MathFunctions.cxx ${NAMESPACE_HEADER_LOCATION}/${PROJECT_HEADER_LOCATION}/MathFunctions.h
 )
 
 add_library(MathFunctions::MathFunctions ALIAS MathFunctions)
