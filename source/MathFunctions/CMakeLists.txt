@@ -1,9 +1,20 @@
 #
 # create a component library like boost
 #
-add_library(MathFunctions STATIC MathFunctions.cxx)
+add_library(
+  MathFunctions MathFunctions.cxx ${NAMESPACE_HEADER_LOCATION}/${PROJECT_NAMESPACE}/MathFunctions.h
+)
 
 add_library(MathFunctions::MathFunctions ALIAS MathFunctions)
+
+# Note: for SameMajorVersion upgrade stategie
+set_target_properties(
+  MathFunctions
+  PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR}
+             VERSION ${PROJECT_VERSION}
+             VISIBILITY_INLINES_HIDDEN ${BUILD_SHARED_LIBS}
+             CMAKE_VISIBILITY_INLINES_HIDDEN ${BUILD_SHARED_LIBS}
+)
 
 # add include directories
 target_include_directories(
@@ -15,15 +26,17 @@ install(
   TARGETS MathFunctions
   EXPORT MathFunctionsTargets
   ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION bin
+  LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
   INCLUDES
   DESTINATION include
 )
 
-# install header file string(TOLOWER ${PROJECT_NAMESPACE} HEADER_LOCATION) install(FILES
-# ${NAMESPACE_HEADER_LOCATION}/${PROJECT_NAMESPACE}/MathFunctions.h DESTINATION
-# include/${HEADER_LOCATION})
+# MAYBE: install public header files
+# string(TOLOWER ${PROJECT_NAMESPACE} HEADER_LOCATION)
+# install(FILES ${NAMESPACE_HEADER_LOCATION}/${PROJECT_NAMESPACE}/MathFunctions.h
+#         DESTINATION include/${HEADER_LOCATION}
+# )
 
 if(COMPONENT_TARGETS_ENABLED)
   # generate and install export file
@@ -34,12 +47,3 @@ if(COMPONENT_TARGETS_ENABLED)
     DESTINATION lib/cmake/MathFunctions
   )
 endif()
-
-set_property(TARGET MathFunctions PROPERTY VERSION ${PROJECT_VERSION})
-set_property(TARGET MathFunctions PROPERTY SOVERSION 3)
-set_property(TARGET MathFunctions PROPERTY INTERFACE_MathFunctions_MAJOR_VERSION 3)
-set_property(
-  TARGET MathFunctions
-  APPEND
-  PROPERTY COMPATIBLE_INTERFACE_STRING MathFunctions_MAJOR_VERSION
-)

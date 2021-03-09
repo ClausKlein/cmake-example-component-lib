@@ -1,4 +1,4 @@
-#include "mathfunctions/Addition.h"
+#include <mathfunctions/Addition.h>
 
 namespace MathFunctions {
   auto add(double x, double y) -> double { return x + y; }

@@ -1,4 +1,5 @@
 // A simple program that outputs the square root of a number
+#include <fmt/core.h>
 #include <mathfunctions/Addition.h>
 #include <mathfunctions/SquareRoot.h>
 
@@ -7,7 +8,7 @@
 
 auto main(int argc, char* argv[]) -> int {
   if (argc < 2) {
-    std::cout << "Usage: " << argv[0] << " number" << std::endl;
+    std::cerr << "Usage: " << *argv << " number" << std::endl;
     return 1;
   }
 
@@ -16,11 +17,11 @@ auto main(int argc, char* argv[]) -> int {
 
   // calculate square root
   const double sqrt = MathFunctions::sqrt(inputValue);
-  std::cout << "The square root of " << inputValue << " is " << sqrt << std::endl;
+  fmt::print("The square root of {} is {}\n", inputValue, sqrt);
 
   // calculate sum
   const double sum = MathFunctions::add(inputValue, inputValue);
-  std::cout << inputValue << " + " << inputValue << " = " << sum << std::endl;
+  fmt::print("{0} + {0} = {1}\n", inputValue, sum);
 
   return 0;
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <mathfunctions/mathfunctions_export.h>
+
 namespace MathFunctions {
-  double sqrt(double x);
+  double MATHFUNCTIONS_EXPORT sqrt(double x);
 }

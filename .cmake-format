@@ -4,7 +4,7 @@ format:
   dangle_parens: true
 
 markup:
-  enable_markup: true
+  enable_markup: false
 
 parse:
   additional_commands:
