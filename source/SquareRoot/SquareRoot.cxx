@@ -1,7 +1,7 @@
-#include "SquareRoot.h"
+#include <mathfunctions/SquareRoot.h>
 
 #include <cmath>
 
 namespace MathFunctions {
-  double sqrt(double x) { return std::sqrt(x); }
+  auto sqrt(double x) -> double { return std::sqrt(x); }
 }  // namespace MathFunctions

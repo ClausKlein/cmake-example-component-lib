@@ -1,5 +1,7 @@
 #pragma once
 
+#include <mathfunctions/mathfunctions_export.h>
+
 namespace MathFunctions {
-  double add(double x, double y);
+  double MATHFUNCTIONS_EXPORT add(double x, double y);
 }

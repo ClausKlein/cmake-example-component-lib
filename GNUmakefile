@@ -4,7 +4,7 @@
 GENERATOR?=Ninja
 
 STAGE_DIR?=$(CURDIR)/stage
-BUILD_TYPE?=Debug
+BUILD_TYPE?=Release
 CMAKE_PRESET:=-G "$(GENERATOR)" -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) -DCMAKE_PREFIX_PATH=$(STAGE_DIR)
 # Note: not needed -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
@@ -29,7 +29,7 @@ distclean: clean
 # update CPM.cmake
 update:
 	wget -q -O cmake/CPM.cmake https://github.com/cpm-cmake/CPM.cmake/releases/latest/download/get_cpm.cmake
-	wget -q -O cmake/WarningsAsErrors.cmake https://raw.githubusercontent.com/approvals/ApprovalTests.cpp/master/CMake/WarningsAsErrors.cmake
+	wget -q -O cmake/ProjectWarningsAsErrors.cmake https://raw.githubusercontent.com/approvals/ApprovalTests.cpp/master/CMake/WarningsAsErrors.cmake
 
 # install the library to stagedir
 install:
@@ -40,6 +40,7 @@ install:
 
 # test the library
 test: install
+	rm -rf $(BUILD_DIR)
 	cmake -S $@ -B $(BUILD_DIR)/$@ ${CMAKE_PRESET} -DTEST_INSTALLED_VERSION=1
 	perl -i.bak -pe 's#-I($$CPM_SOURCE_CACHE)#-isystem $$1#g' $(BUILD_DIR)/$@/compile_commands.json
 	cmake --build $(BUILD_DIR)/$@

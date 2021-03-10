@@ -34,12 +34,12 @@ jobs:
           rm -rf build
 
       - name: configure
-        run: cmake -S test -B build -DTEST_INSTALLED_VERSION=1
+        run: cmake -S test -B build -DCMAKE_BUILD_TYPE=Release -DTEST_INSTALLED_VERSION=1
 
       - name: build
-        run: cmake --build build --config Debug -j4
+        run: cmake --build build --config Release -j4
 
       - name: test
         run: |
           cd build
-          ctest --build-config Debug
+          ctest --build-config Release

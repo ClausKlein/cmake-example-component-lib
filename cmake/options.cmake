@@ -9,7 +9,7 @@ endif()
 # Note: same postfix as fmt and spdlog! CK
 set(CMAKE_DEBUG_POSTFIX d)
 
-option(BUILD_SHARED_LIBS "Create shared libraries" NOT_YET)
+option(BUILD_SHARED_LIBS "Build shared libraries" NO)
 
 # build the dynamic libraries and executables together at bin directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -19,7 +19,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 if(NOT DEFINED CMAKE_CXX_STANDARD)
   option(CXX_STANDARD_REQUIRED "Require c++ standard" YES)
-  set(CMAKE_CXX_STANDARD 17)
+  set(CMAKE_CXX_STANDARD 20)
   set(CMAKE_CXX_EXTENSIONS NO)
 endif()
 

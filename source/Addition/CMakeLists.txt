@@ -1,39 +1,49 @@
 #
 # create a component library like boost
 #
-add_library(Addition STATIC Addition.cxx Addition.h)
+add_library(
+  Addition Addition.cxx ${NAMESPACE_HEADER_LOCATION}/${PROJECT_HEADER_LOCATION}/Addition.h
+)
 
-add_library(${namespace}::Addition ALIAS Addition)
+add_library(${PROJECT_NAMESPACE}::Addition ALIAS Addition)
+
+# Note: for SameMajorVersion upgrade stategie
+set_target_properties(
+  Addition
+  PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR}
+             VERSION ${PROJECT_VERSION}
+             VISIBILITY_INLINES_HIDDEN ${BUILD_SHARED_LIBS}
+             CMAKE_VISIBILITY_INLINES_HIDDEN ${BUILD_SHARED_LIBS}
+)
 
 # add include directories
 target_include_directories(
-  Addition PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../include>
-                  $<INSTALL_INTERFACE:include>
+  Addition PUBLIC $<BUILD_INTERFACE:${NAMESPACE_HEADER_LOCATION}> $<INSTALL_INTERFACE:include>
 )
 
 # install the target and create export-set
 install(
   TARGETS Addition
-  # XXX EXPORT AdditionTargets
-  EXPORT ${namespace}Targets
+  EXPORT ${PROJECT_NAMESPACE}Targets
   ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION bin
+  LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
   INCLUDES
   DESTINATION include
 )
 
-# install header file
-string(TOLOWER ${namespace} HEADER_LOCATION)
-install(FILES Addition.h DESTINATION include/${HEADER_LOCATION})
+# MAYBE: install public header files
+# string(TOLOWER ${PROJECT_NAMESPACE} HEADER_LOCATION)
+# install(FILES ${NAMESPACE_HEADER_LOCATION}/${PROJECT_NAMESPACE}/Addition.h
+#         DESTINATION include/${HEADER_LOCATION}
+# )
 
-if(DEFINED COMPONET_TARGETS_ENABLED)
+if(COMPONENT_TARGETS_ENABLED)
   # generate and install export file
   install(
-    # XXX EXPORT AdditionTargets
-    EXPORT ${namespace}Targets
-    FILE ${namespace}AdditionTargets.cmake
-    NAMESPACE ${namespace}::
-    DESTINATION lib/cmake/${namespace}
+    EXPORT ${PROJECT_NAMESPACE}Targets
+    FILE ${PROJECT_NAMESPACE}AdditionTargets.cmake
+    NAMESPACE ${PROJECT_NAMESPACE}::
+    DESTINATION lib/cmake/${PROJECT_NAMESPACE}
   )
 endif()

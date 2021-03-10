@@ -1,5 +1,5 @@
-#include "Addition.h"
+#include <mathfunctions/Addition.h>
 
 namespace MathFunctions {
-  double add(double x, double y) { return x + y; }
+  auto add(double x, double y) -> double { return x + y; }
 }  // namespace MathFunctions
