@@ -10,6 +10,24 @@ with tests, executables and continuous integration.  This template is the
 result of learnings from many previous projects and should help reduce
 the work required to setup up a modern C++ project.
 
+This repository is intended as a template to show the "proper" way to
+setup a "Modern CMake" project with `components`. The required usage (for a
+downstream library) should be nothing more than:
+
+```cmake
+  find_package(
+    MathFunctions 1
+    COMPONENTS Addition SquareRoot
+    REQUIRED
+  )
+
+  /#..
+
+  target_link_libraries(
+    MathFunctionsTests Boost::ut MathFunctions::Addition MathFunctions::SquareRoot
+  )
+```
+
 ## Features
 
 - [Modern CMake practices](https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/)
@@ -27,6 +45,9 @@ the work required to setup up a modern C++ project.
 - Automatic [documentation](https://thelartians.github.io/ModernCppStarter) and deployment with [Doxygen](https://www.doxygen.nl) and [GitHub Pages](https://pages.github.com)
 - Support for [sanitizer tools, and more](#additional-tools)
 
+### Tip: Use [Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+
+
 ## Usage
 
 ### Adjust the template to your needs
@@ -39,7 +60,7 @@ the work required to setup up a modern C++ project.
 
 Eventually, you can remove any unused files, such as the standalone
 directory or irrelevant github workflows for your project.  Feel free to
-replace the License with one suited for your project.
+replace the [License](License) with one suited for your project.
 
 To cleanly separate the library and subproject code, the outer
 `CMakeList.txt` only defines the library itself while the tests and other
@@ -47,14 +68,24 @@ subprojects are self-contained in their own directories.  During
 development it is usually convenient to [build all subprojects at
 once](#build-everything-at-once).
 
+
+### Use the makefile wrapper on unix bash or with GVIM
+
+There is a [makefile](GNUmakefile) to wrap the
+[CMake](https://cmake.org/cmake/help/latest/manual/cmake.1.html)
+command-line interface for esay use at bash shell.
+
+
 ### Build and run the standalone target
 
 Use the following command to build and run the executable target.
 
 ```bash
-cmake -Sstandalone -Bbuild/standalone
+make standalone
+
+# or
 cmake --build build/standalone
-./build/standalone/MathFunctionsStandalone --help
+build/standalone/MathFunctionsStandalone 2.0
 ```
 
 ### Build and run test suite
@@ -63,16 +94,27 @@ Use the following commands from the project's root directory to run the
 test suite.
 
 ```bash
-cmake -Stest -Bbuild/test
+make test
+
+# or
+cmake -S test -B build/test
 cmake --build build/test
 CTEST_OUTPUT_ON_FAILURE=1 cmake --build build/test --target test
 
 # or simply call the executable:
-./build/test/MathFunctionsTest
+build/test/MathFunctionsTest
 ```
 
 To collect code coverage information, run CMake with the
 `-DENABLE_TEST_COVERAGE=1` option.
+
+
+### Run clang-tidy
+
+To check your project with _clang-tidy_ simply do
+
+`make check`
+
 
 ### Run clang-format
 
@@ -81,7 +123,10 @@ fix C++ and CMake source style.  This requires _clang-format_,
 _cmake-format_ and _pyyaml_ to be installed on the current system.
 
 ```bash
-cmake -Stest -Bbuild/test
+make format
+
+# or
+cmake -S test -B build/test
 
 # view changes
 cmake --build build/test --target format
@@ -92,12 +137,16 @@ cmake --build build/test --target fix-format
 
 See [Format.cmake](https://github.com/TheLartians/Format.cmake) for details.
 
+
 ### Build the documentation
 
 To manually build documentation, call the following command.
 
 ```bash
-cmake -Sdocumentation -Bbuild/doc
+make doc
+
+# or
+cmake -S documentation -B build/doc
 cmake --build build/doc --target GenerateDocs
 # view the docs
 open build/doc/doxygen/html/index.html
@@ -106,6 +155,7 @@ open build/doc/doxygen/html/index.html
 To build the documentation locally, you will need Doxygen, jinja2 and
 Pygments on installed your system.
 
+
 ### Build everything at once
 
 The project also includes an `all` directory that allows building all
@@ -113,16 +163,26 @@ targets at the same time.  This is useful during development, as it
 exposes all subprojects to your IDE and avoids redundant builds of the
 library.
 
+#### Hint: Try [Qt Creator](https://www.qt.io/download-open-source) as IDE
+
+It creates the best usable results when open a project via
+[all/CMakeLists.txt](all/CMakeLists.txt).  And it supports to direct
+import a existing CMake build directory.
+
+
 ```bash
-cmake -Sall -Bbuild
+make all
+
+# or
+cmake -S all -B build
 cmake --build build
 
 # run tests
-./build/test/MathFunctionsTest
+build/test/MathFunctionsTest
 # format code
 cmake --build build --target fix-format
 # run standalone
-./build/standalone/MathFunctionsStandalone --help
+build/standalone/MathFunctionsStandalone 42.0
 # build docs
 cmake --build build --target GenerateDocs
 ```
@@ -151,6 +211,7 @@ setting the `CLANG_TIDY_ARGS`, `IWYU_ARGS` or `CPPCHECK_ARGS` variables.
 #### Ccache
 
 Ccache can be enabled by configuring with `-DUSE_CCACHE=<ON | OFF>`.
+
 
 ## FAQ
 

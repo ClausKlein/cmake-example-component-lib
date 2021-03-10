@@ -21,7 +21,7 @@ if(USE_SANITIZER OR USE_STATIC_ANALYZER)
   CPMAddPackage(
     NAME StableCoder-cmake-scripts
     GITHUB_REPOSITORY StableCoder/cmake-scripts
-    GIT_TAG 3d2d5a9fb26f0ce24e3e4eaeeff686ec2ecfb3fb
+    GIT_TAG 21.01
   )
 
   if(USE_SANITIZER)

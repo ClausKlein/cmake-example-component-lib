@@ -39,9 +39,9 @@ endif()
 CPMAddPackage(
   NAME Format.cmake
   GITHUB_REPOSITORY TheLartians/Format.cmake
-  VERSION 1.6
-  OPTIONS # enable cmake formatting
-          "FORMAT_CHECK_CMAKE ON"
+  VERSION 1.7.0
+  OPTIONS # skip cmake formatting
+          "FORMAT_SKIP_CMAKE ON"
 )
 
 # ---- Create binary ----

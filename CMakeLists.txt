@@ -32,10 +32,10 @@ include(cmake/CPM.cmake)
 CPMAddPackage(
   NAME PackageProject.cmake
   GITHUB_REPOSITORY TheLartians/PackageProject.cmake
-  VERSION 1.5.0
+  VERSION 1.5.1
 )
 
-set(COMPONENT_TARGETS_ENABLED NO)
+option(COMPONENT_TARGETS_ENABLED "Install multiple cmake config target files" NO)
 set(PROJECT_NAMESPACE ${PROJECT_NAME})
 set(NAMESPACE_HEADER_LOCATION ${CMAKE_CURRENT_LIST_DIR}/include)
 string(TOLOWER ${PROJECT_NAMESPACE} PROJECT_HEADER_LOCATION)
@@ -115,5 +115,5 @@ export(
 # install cmake project config files
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake
               ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfigVersion.cmake
-        DESTINATION lib/cmake/MathFunctions
+        DESTINATION lib/cmake/${PROJECT_NAMESPACE}
 )
