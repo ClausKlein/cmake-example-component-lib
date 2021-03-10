@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MathFunctions</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">MathFunctions</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+          <path id="m-doc-search-icon-path" d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z"/>
+        </svg></a>
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li>
+              <a href="pages.html">Pages</a>
+              <ol>
+                <li><a href="about.html">About</a></li>
+              </ol>
+            </li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+            <li class="m-show-m"><a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+              <use href="#m-doc-search-icon-path" />
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          MathFunctions
+        </h1>
+<p><a name="md_README"></a></p><img class="m-image" src="https://repository-images.githubusercontent.com/254842585/4dfa7580-7ffb-11ea-99d0-46b8fe2f4170" alt="Image" /><section id="autotoc_md0"><h2><a href="#autotoc_md0">ModernCppComponentLibraryExample</a></h2><p>Setting up a new C++ project usually requires a significant amount of preparation and boilerplate code, even more so for modern C++ projects with tests, executables and continuous integration. This template is the result of learnings from many previous projects and should help reduce the work required to setup up a modern C++ project.</p><p>This repository is intended as a template to show the &quot;proper&quot; way to setup a &quot;Modern CMake&quot; project with <code>components</code>. The required usage (for a downstream library) should be nothing more than:</p><pre class="m-code"><span class="nb">find_package</span><span class="p">(</span>
+  <span class="s">MathFunctions</span> <span class="s">1</span>
+  <span class="s">COMPONENTS</span> <span class="s">Addition</span> <span class="s">SquareRoot</span>
+  <span class="s">REQUIRED</span>
+<span class="p">)</span>
+
+<span class="err">/</span><span class="c">#..</span>
+
+<span class="nb">target_link_libraries</span><span class="p">(</span>
+  <span class="s">MathFunctionsTests</span> <span class="s">Boost::ut</span> <span class="s">MathFunctions::Addition</span> <span class="s">MathFunctions::SquareRoot</span>
+<span class="p">)</span></pre><section id="autotoc_md1"><h3><a href="#autotoc_md1">Features</a></h3><ul><li><a href="https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/">Modern CMake practices</a></li><li><a href="https://crascit.com/2019/10/16/cppcon-2019-deep-cmake-for-library-authors/">CMake for library authors: Best practice</a></li><li><a href="https://www.kdab.com/clang-tidy-part-1-modernize-source-code-using-c11c14/">Modernize C++ using clang-tidy</a></li><li><a href="https://cmake.org/cmake/help/latest/guide/importing-exporting/index.html?highlight=components#adding-components">CMake Importing Exporting Guilde</a></li><li>Suited for single header libraries and projects of any scale</li><li>Clean separation of library and executable code</li><li>Integrated test suite</li><li>Continuous integration via <a href="https://help.github.com/en/actions/">GitHub Actions</a></li><li>Code coverage via <a href="https://codecov.io">codecov</a></li><li>Code formatting enforced by <a href="https://clang.llvm.org/docs/ClangFormat.html">clang-format</a> and <a href="https://github.com/cheshirekow/cmake_format">cmake-format</a> via <a href="https://github.com/TheLartians/Format.cmake">Format.cmake</a></li><li>Reproducible dependency management via <a href="https://github.com/TheLartians/CPM.cmake">CPM.cmake</a></li><li>Installable target with automatic versioning information and header generation via <a href="https://github.com/TheLartians/PackageProject.cmake">PackageProject.cmake</a></li><li>Automatic <a href="https://thelartians.github.io/ModernCppStarter">documentation</a> and deployment with <a href="https://www.doxygen.nl">Doxygen</a> and <a href="https://pages.github.com">GitHub Pages</a></li><li>Support for <a href="#additional-tools">sanitizer tools, and more</a></li></ul><section id="autotoc_md2"><h4><a href="#autotoc_md2">Tip: Use &lt;a href=&quot;https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow&quot;&gt;Gitflow Workflow&lt;/a&gt;</a></h4></section></section><section id="autotoc_md3"><h3><a href="#autotoc_md3">Usage</a></h3><section id="autotoc_md4"><h4><a href="#autotoc_md4">Adjust the template to your needs</a></h4><ul><li>Use this repo <a href="https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template">as a template</a> and replace all occurrences of &quot;MathFunctions&quot; in the relevant <code>CMakeLists.txt</code> with the name of your project</li><li>Replace the source files with your own</li><li>For header-only libraries: see the comments in <a href="CMakeLists.txt">CMakeLists.txt</a></li><li>Add <a href="https://docs.codecov.io/docs/quick-start">your project&#x27;s codecov token</a> to your project&#x27;s github secrets under <code>CODECOV_TOKEN</code></li><li>Happy coding!</li></ul><p>Eventually, you can remove any unused files, such as the standalone directory or irrelevant github workflows for your project. Feel free to replace the [License](License) with one suited for your project.</p><p>To cleanly separate the library and subproject code, the outer <code>CMakeList.txt</code> only defines the library itself while the tests and other subprojects are self-contained in their own directories. During development it is usually convenient to <a href="#build-everything-at-once">build all subprojects at once</a>.</p></section><section id="autotoc_md5"><h4><a href="#autotoc_md5">Use the makefile wrapper on unix bash or with GVIM</a></h4><p>There is a [makefile](GNUmakefile) to wrap the <a href="https://cmake.org/cmake/help/latest/manual/cmake.1.html">CMake</a> command-line interface for esay use at bash shell.</p></section><section id="autotoc_md6"><h4><a href="#autotoc_md6">Build and run the standalone target</a></h4><p>Use the following command to build and run the executable target.</p><pre class="m-code">make standalone
+
+<span class="c1"># or</span>
+cmake --build build/standalone
+build/standalone/MathFunctionsStandalone <span class="m">2</span>.0</pre></section><section id="autotoc_md7"><h4><a href="#autotoc_md7">Build and run test suite</a></h4><p>Use the following commands from the project&#x27;s root directory to run the test suite.</p><pre class="m-code">make <span class="nb">test</span>
+
+<span class="c1"># or</span>
+cmake -S <span class="nb">test</span> -B build/test
+cmake --build build/test
+<span class="nv">CTEST_OUTPUT_ON_FAILURE</span><span class="o">=</span><span class="m">1</span> cmake --build build/test --target <span class="nb">test</span>
+
+<span class="c1"># or simply call the executable:</span>
+build/test/MathFunctionsTest</pre><p>To collect code coverage information, run CMake with the <code>-DENABLE_TEST_COVERAGE=1</code> option.</p></section><section id="autotoc_md8"><h4><a href="#autotoc_md8">Run clang-tidy</a></h4><p>To check your project with <em>clang-tidy</em> simply do</p><p><code>make check</code></p></section><section id="autotoc_md9"><h4><a href="#autotoc_md9">Run clang-format</a></h4><p>Use the following commands from the project&#x27;s root directory to check and fix C++ and CMake source style. This requires <em>clang-format</em>, <em>cmake-format</em> and <em>pyyaml</em> to be installed on the current system.</p><pre class="m-code">make format
+
+<span class="c1"># or</span>
+cmake -S <span class="nb">test</span> -B build/test
+
+<span class="c1"># view changes</span>
+cmake --build build/test --target format
+
+<span class="c1"># apply changes</span>
+cmake --build build/test --target fix-format</pre><p>See <a href="https://github.com/TheLartians/Format.cmake">Format.cmake</a> for details.</p></section><section id="autotoc_md10"><h4><a href="#autotoc_md10">Build the documentation</a></h4><p>To manually build documentation, call the following command.</p><pre class="m-code">make doc
+
+<span class="c1"># or</span>
+cmake -S documentation -B build/doc
+cmake --build build/doc --target GenerateDocs
+<span class="c1"># view the docs</span>
+open build/doc/doxygen/html/index.html</pre><p>To build the documentation locally, you will need Doxygen, jinja2 and Pygments on installed your system.</p></section><section id="autotoc_md11"><h4><a href="#autotoc_md11">Build everything at once</a></h4><p>The project also includes an <code>all</code> directory that allows building all targets at the same time. This is useful during development, as it exposes all subprojects to your IDE and avoids redundant builds of the library.</p><section id="autotoc_md12"><h5><a href="#autotoc_md12">Hint: Try &lt;a href=&quot;https://www.qt.io/download-open-source&quot;&gt;Qt Creator&lt;/a&gt; as IDE</a></h5><p>It creates the best usable results when open a project via <a href="all/CMakeLists.txt">all/<wbr />CMakeLists.txt</a>. And it supports to direct import a existing CMake build directory.</p><pre class="m-code">make all
+
+<span class="c1"># or</span>
+cmake -S all -B build
+cmake --build build
+
+<span class="c1"># run tests</span>
+build/test/MathFunctionsTest
+<span class="c1"># format code</span>
+cmake --build build --target fix-format
+<span class="c1"># run standalone</span>
+build/standalone/MathFunctionsStandalone <span class="m">42</span>.0
+<span class="c1"># build docs</span>
+cmake --build build --target GenerateDocs</pre></section></section><section id="autotoc_md13"><h4><a href="#autotoc_md13">Additional tools</a></h4><p>The test and standalone subprojects include the <a href="cmake/tools.cmake">tools.cmake</a> file which is used to import additional tools on-demand through CMake configuration arguments. The following are currently supported.</p><section id="autotoc_md14"><h5><a href="#autotoc_md14">Sanitizers</a></h5><p>Sanitizers can be enabled by configuring CMake with &lsquo;-DUSE_SANITIZER=&lt;Address | Memory | MemoryWithOrigins | Undefined | Thread | Leak | &#x27;Address;Undefined&rsquo;&gt;`.</p></section><section id="autotoc_md15"><h5><a href="#autotoc_md15">Static Analyzers</a></h5><p>Static Analyzers can be enabled by setting <code>-DUSE_STATIC_ANALYZER=&lt;clang-tidy | iwyu | cppcheck&gt;</code>, or a combination of those in quotation marks, separated by semicolons. By default, analyzers will automatically find configuration files such as <code>.clang-format</code>. Additional arguments can be passed to the analyzers by setting the <code>CLANG_TIDY_ARGS</code>, <code>IWYU_ARGS</code> or <code>CPPCHECK_ARGS</code> variables.</p></section><section id="autotoc_md16"><h5><a href="#autotoc_md16">Ccache</a></h5><p>Ccache can be enabled by configuring with <code>-DUSE_CCACHE=&lt;ON | OFF&gt;</code>.</p></section></section></section><section id="autotoc_md17"><h3><a href="#autotoc_md17">FAQ</a></h3><blockquote><p>Can I use this for header-only libraries?</p></blockquote><p>Yes, however you will need to change the library type to an <code>INTERFACE</code> library as documented in the <a href="CMakeLists.txt">CMakeLists.txt</a>. See <a href="https://github.com/TheLartians/StaticTypeInfo">here</a> for an example header-only library based on the template.</p><blockquote><p>I don&#x27;t need a standalone target / documentation. How can I get rid of it?</p></blockquote><p>Simply remove the standalone / documentation directory and according github workflow file.</p><blockquote><p>Can I build the standalone and tests at the same time? / How can I tell my IDE about all subprojects?</p></blockquote><p>To keep the template modular, all subprojects derived from the library have been separated into their own CMake modules. This approach makes it trivial for third-party projects to re-use the projects library code. To allow IDEs to see the full scope of the project, the template includes the <code>all</code> directory that will create a single build for all subprojects. Use this as the main directory for best IDE support.</p><blockquote><p>I see you are using <code>GLOB</code> to add source files in <code>CMakeLists.txt</code>. Isn&#x27;t that evil?</p></blockquote><p>Glob is considered bad because any changes to the source file structure <a href="https://cmake.org/cmake/help/latest/command/file.html#filesystem">might not be automatically caught</a> by CMake&#x27;s builders and you will need to manually invoke CMake on changes. I personally prefer the <code>GLOB</code> solution for its simplicity, but feel free to change it to explicitly listing sources.</p><blockquote><p>I want create additional targets that depend on my library. Should I modify the main <code>CMakeLists.txt</code> to include them?</p></blockquote><p>Avoid including derived projects from the libraries <code>CMakeLists.txt</code> (even though it is a common sight in the C++ world), as this effectively inverts the dependency tree and makes the build system hard to reason about. Instead, create a new directory or project with a <code>CMakeLists.txt</code> that adds the library as a dependency (e.g. like the <a href="standalone/CMakeLists.txt">standalone</a> directory). Depending type it might make sense move these components into a separate repositories and reference a specific commit or version of the library. This has the advantage that individual libraries and components can be improved and updated independently.</p><blockquote><p>You recommend to add external dependencies using CPM.cmake. Will this force users of my library to use CPM as well?</p></blockquote><p><a href="https://github.com/TheLartians/CPM.cmake">CPM.cmake</a> should be invisible to library users as it&#x27;s a self-contained CMake Script. If problems do arise, users can always opt-out by defining <code>CPM_USE_LOCAL_PACKAGES</code>, which will override all calls to <code>CPMAddPackage</code> with <code>find_package</code>. Alternatively, you could use <code>CPMFindPackage</code> instead of <code>CPMAddPackage</code>, which will try to use <code>find_package</code> before calling <code>CPMAddPackage</code> as a fallback. Both approaches should be compatible with common C++ package managers without modifications, however come with the cost of reproducible builds.</p><blockquote><p>Can I configure and build my project offline?</p></blockquote><p>Using CPM, all missing dependencies are downloaded at configure time. To avoid redundant downloads, it&#x27;s recommended to set a CPM cache directory, e.g.: <code>export CPM_SOURCE_CACHE=$HOME/.cache/CPM</code>. This will also allow offline configurations if all dependencies are present. No internet connection is required for building.</p><blockquote><p>Can I use CPack to create a package installer for my project?</p></blockquote><p>As there are a lot of possible options and configurations, this is not (yet) in the scope of this template. See the <a href="https://cmake.org/cmake/help/latest/module/CPack.html">CPack documentation</a> for more information on setting up CPack installers.</p><blockquote><p>This is too much, I just want to play with C++ code and test some libraries.</p></blockquote><p>Perhaps the <a href="https://github.com/TheLartians/MiniCppStarter">MiniCppStarter</a> is something for you!</p></section></section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-doc-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-doc-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">&hellip;</div>
+        </div>
+        <div class="m-doc-search-content">
+          <form>
+            <input type="search" name="q" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" autocomplete="off" spellcheck="false" />
+          </form>
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div id="search-help" class="m-text m-dim m-text-center">
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">&darr;</span>
+            / <span class="m-label m-dim">&uarr;</span> to navigate through the list,
+            <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+          </div>
+          <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="search-v1.js"></script>
+<script src="searchdata-v1.js" async="async"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>MathFunctions. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>
