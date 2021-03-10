@@ -60,8 +60,16 @@ target_include_directories(
 # the location where the project's version header will be placed should match the project's regular
 # header paths
 string(TOLOWER ${PROJECT_NAMESPACE}/version.h VERSION_HEADER_LOCATION)
+
 # Note: depends on target MathFunctions! CK
 string(TOLOWER ${PROJECT_NAMESPACE}/${PROJECT_NAMESPACE}_export.h EXPORT_HEADER_LOCATION)
+
+include(GenerateExportHeader)
+
+# Note: need to generate at source tree! CK
+generate_export_header(
+  ${PROJECT_NAMESPACE} EXPORT_FILE_NAME ${NAMESPACE_HEADER_LOCATION}/${EXPORT_HEADER_LOCATION}
+)
 
 # Note: This needs to be done after all install(TARGETS ...) commands!
 # generate and install export targets file
@@ -84,18 +92,11 @@ if(NOT COMPONENT_TARGETS_ENABLED)
     INCLUDE_DIR ${NAMESPACE_HEADER_LOCATION}
     INCLUDE_DESTINATION include #TODO ${INCLUDE_INSTALL_DIR}
     VERSION_HEADER ${VERSION_HEADER_LOCATION}
-    EXPORT_HEADER ${EXPORT_HEADER_LOCATION}
+    #FIXME EXPORT_HEADER ${EXPORT_HEADER_LOCATION}
     COMPATIBILITY SameMajorVersion
     DISABLE_VERSION_SUFFIX YES DISABLE_CHECK_REQUIRED_COMPONENTS YES
   )
 else()
-  include(GenerateExportHeader)
-
-  # Note: need to generate at source tree! CK
-  generate_export_header(
-    ${PROJECT_NAMESPACE} EXPORT_FILE_NAME
-    ${CMAKE_CURRENT_LIST_DIR}/include/${EXPORT_HEADER_LOCATION}
-  )
 
   # install generated header files
   install(
