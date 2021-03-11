@@ -36,12 +36,15 @@ CPMAddPackage(
   GIT_TAG 43fccf1a2f8f3d8dbecd547485c2278035448171
 )
 
-option(COMPONENT_TARGETS_ENABLED "Install multiple cmake config target files" NO)
+set(COMPONENT_TARGETS_ENABLED NO) # Note: DO not set! CK
 set(PROJECT_NAMESPACE ${PROJECT_NAME})
+set(PROJECT_VERSION_INCLUDE_DIR ${PROJECT_BINARY_DIR}/PackageProjectInclude)
+include_directories(${PROJECT_VERSION_INCLUDE_DIR})
+
 set(NAMESPACE_HEADER_LOCATION ${CMAKE_CURRENT_LIST_DIR}/include)
-set(INCLUDE_INSTALL_DIR include/${PROJECT_NAMESPACE}-${PROJECT_VERSION})
+set(INCLUDE_INSTALL_DIR include/${PROJECT_NAMESPACE}-${PROJECT_VERSION}) # XXX VERSION_SUFFIX
 string(TOLOWER ${PROJECT_NAMESPACE} PROJECT_HEADER_LOCATION)
-# TBD: needed to be lower case? CK
+# TODO: needed to be lower case? CK
 
 # ---- Add components libraries here ----
 
@@ -69,16 +72,9 @@ set_target_properties(
 
 # the location where the project's version header will be placed should match the project's regular
 # header paths
-string(TOLOWER ${PROJECT_NAMESPACE}/version.h VERSION_HEADER_LOCATION)
-string(TOLOWER ${PROJECT_NAMESPACE}/${PROJECT_NAMESPACE}_export.h EXPORT_HEADER_LOCATION)
-# TBD: needed to be lower case? CK
-
-include(GenerateExportHeader)
-
-# TODO: need to generate at source tree! CK
-generate_export_header(
-  ${PROJECT_NAMESPACE} EXPORT_FILE_NAME ${NAMESPACE_HEADER_LOCATION}/${EXPORT_HEADER_LOCATION}
-)
+string(TOLOWER ${PROJECT_NAMESPACE}/version.h PROJECT_VERSION_HEADER)
+string(TOLOWER ${PROJECT_NAMESPACE}/${PROJECT_NAMESPACE}_export.h PROJECT_EXPORT_HEADER)
+# TODO: needed to be lower case? CK
 
 # Note: This needs to be done after all install(TARGETS ...) commands!
 # generate and install export targets file
@@ -86,66 +82,23 @@ install(
   EXPORT ${PROJECT_NAMESPACE}Targets
   FILE ${PROJECT_NAMESPACE}Targets.cmake
   NAMESPACE ${PROJECT_NAMESPACE}::
-  DESTINATION lib/cmake/${PROJECT_NAMESPACE}-${PROJECT_VERSION}
+  DESTINATION lib/cmake/${PROJECT_NAMESPACE}-${PROJECT_VERSION} # XXX VERSION_SUFFIX
 )
 
-if(NOT COMPONENT_TARGETS_ENABLED)
-  message(STATUS "Install only 1 cmake config target ${PROJECT_NAMESPACE}Targets.cmake file")
-
-  # Note: the export header will be installed while installing the version header! CK
-  packageProject(
-    NAME ${PROJECT_NAME}
-    VERSION ${PROJECT_VERSION}
-    NAMESPACE ${PROJECT_NAMESPACE}
-    BINARY_DIR ${PROJECT_BINARY_DIR}
-    INCLUDE_DIR ${NAMESPACE_HEADER_LOCATION}
-    INCLUDE_DESTINATION ${INCLUDE_INSTALL_DIR}
-    VERSION_HEADER ${VERSION_HEADER_LOCATION}
-    EXPORT_HEADER ${EXPORT_HEADER_LOCATION}
-    COMPATIBILITY SameMajorVersion #XXX DISABLE_VERSION_SUFFIX YES
-                  DISABLE_CHECK_REQUIRED_COMPONENTS YES
-  )
-else()
-
-  # install generated header files
-  install(
-    DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include/${PROJECT_HEADER_LOCATION}
-    TYPE INCLUDE # or: DESTINATION ${INCLUDE_INSTALL_DIR}
-    FILES_MATCHING
-    PATTERN "*.h"
-  )
-
-  # install source tree header files
-  install(
-    DIRECTORY include/${PROJECT_HEADER_LOCATION}
-    TYPE INCLUDE # or: DESTINATION ${INCLUDE_INSTALL_DIR}
-    FILES_MATCHING
-    PATTERN "*.h"
-  )
-
-  include(CMakePackageConfigHelpers)
-
-  # generate the version file for the config file
-  write_basic_package_version_file(
-    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAMESPACE}ConfigVersion.cmake
-    VERSION ${PROJECT_VERSION}
-    COMPATIBILITY SameMajorVersion
-  )
-
-  # create config file
-  configure_package_config_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAMESPACE}Config.cmake
-    INSTALL_DESTINATION lib/cmake/${PROJECT_NAMESPACE}
-    NO_CHECK_REQUIRED_COMPONENTS_MACRO
-  )
-
-  # install cmake project config files
-  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake
-                ${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfigVersion.cmake
-          DESTINATION lib/cmake/${PROJECT_NAMESPACE}
-  )
-endif()
+# Note: the export header will be installed while installing the version header! CK
+packageProject(
+  NAME ${PROJECT_NAME}
+  VERSION ${PROJECT_VERSION}
+  NAMESPACE ${PROJECT_NAMESPACE}
+  BINARY_DIR ${PROJECT_BINARY_DIR}
+  INCLUDE_DIR ${NAMESPACE_HEADER_LOCATION}
+  INCLUDE_DESTINATION ${INCLUDE_INSTALL_DIR}
+  VERSION_HEADER ${PROJECT_VERSION_HEADER}
+  EXPORT_HEADER ${PROJECT_EXPORT_HEADER}
+  COMPATIBILITY SameMajorVersion
+  # XXX DISABLE_VERSION_SUFFIX NOT YET! CK
+  DISABLE_CHECK_REQUIRED_COMPONENTS YES
+)
 
 # generate the export targets for the build tree. Note: The file created by this command is specific
 # to the build tree and should never be installed!

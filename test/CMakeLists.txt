@@ -33,7 +33,7 @@ if(TEST_INSTALLED_VERSION)
   )
 else()
   CPMAddPackage(NAME MathFunctions SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
-  # same as: add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/.. MathFunctions)
+  # Not same as! add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/.. MathFunctions)
 endif()
 
 CPMAddPackage(
