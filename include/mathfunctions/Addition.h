@@ -1,5 +1,10 @@
 #pragma once
 
+// quickhack for now! CK
+#ifdef Addition_EXPORTS
+#  define MathFunctions_EXPORTS
+#endif
+
 #include <mathfunctions/mathfunctions_export.h>
 
 namespace MathFunctions {
