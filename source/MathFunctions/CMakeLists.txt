@@ -19,7 +19,8 @@ set_target_properties(
 
 # add include directories
 target_include_directories(
-  MathFunctions PUBLIC $<BUILD_INTERFACE:${NAMESPACE_HEADER_LOCATION}> $<INSTALL_INTERFACE:include>
+  MathFunctions PUBLIC $<BUILD_INTERFACE:${NAMESPACE_HEADER_LOCATION}>
+                       $<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>
 )
 
 # install the target and create export-set
@@ -34,9 +35,8 @@ install(
 )
 
 # MAYBE: install public header files
-# string(TOLOWER ${PROJECT_NAMESPACE} HEADER_LOCATION)
 # install(FILES ${NAMESPACE_HEADER_LOCATION}/${PROJECT_NAMESPACE}/MathFunctions.h
-#         DESTINATION include/${HEADER_LOCATION}
+#         DESTINATION ${INCLUDE_INSTALL_DIR}/${PROJECT_NAMESPACE}
 # )
 
 if(COMPONENT_TARGETS_ENABLED)

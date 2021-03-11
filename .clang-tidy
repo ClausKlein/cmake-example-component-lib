@@ -1,12 +1,14 @@
 ---
 Checks: "-*,\
 boost-*,\
+bugprone-*,\
 cert-*,\
 clang-analyzer-*,\
 cppcoreguidelines-*,\
--cppcoreguidelines-macro-usage,\
+cppcoreguidelines-macro-usage,\
 -cppcoreguidelines-owning-memory,\
 hicpp-*,\
+llvm-*,\
 misc-*,\
 misc-non-private-member-variables-in-classes,\
 modernize-*,\
@@ -17,7 +19,7 @@ readability-*,\
 -*magic-numbers,\
 -*avoid-c-arrays,\
 "
-WarningsAsErrors: ''
+WarningsAsErrors: 'clang-*'
 HeaderFilterRegex: '.*'
 AnalyzeTemporaryDtors: false
 FormatStyle:     file

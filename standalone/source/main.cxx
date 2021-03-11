@@ -13,7 +13,7 @@ auto main(int argc, char* argv[]) -> int {
   }
 
   // convert input to double
-  const double inputValue = std::stod(argv[1]);
+  const double inputValue = std::stod(argv[1]);  // NOLINT Note: may throw! CK
 
   // calculate square root
   const double sqrt = MathFunctions::sqrt(inputValue);
