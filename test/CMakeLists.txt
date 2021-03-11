@@ -61,6 +61,6 @@ add_test(NAME MathFunctionsTests COMMAND MathFunctionsTests 2.0)
 # ---- code coverage ----
 
 if(ENABLE_TEST_COVERAGE AND NOT MathFunctions_FOUND)
-  target_compile_options(MathFunctions PUBLIC -O0 -g -fprofile-arcs -ftest-coverage)
-  target_link_options(MathFunctions PUBLIC -fprofile-arcs -ftest-coverage)
+  # target_compile_options(MathFunctions PUBLIC -O0 -g -fprofile-arcs -ftest-coverage)
+  # target_link_options(MathFunctions PUBLIC -fprofile-arcs -ftest-coverage)
 endif()

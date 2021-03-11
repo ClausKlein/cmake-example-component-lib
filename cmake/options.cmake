@@ -45,6 +45,12 @@ if(NOT MSVC)
         CACHE STRING "dependency flag" FORCE
     )
   endif()
+
+  if(ENABLE_TEST_COVERAGE AND ${CMAKE_BUILD_TYPE} STREQUAL Debug)
+    # add_compile_options(-fprofile-arcs -ftest-coverage -O0 -g)
+    add_compile_options(--coverage -O0 -g)
+    add_link_options(--coverage)
+  endif()
 endif()
 
 option(CMAKE_EXPORT_COMPILE_COMMANDS "support clang-tidy, cppcheck, ..." YES)
