@@ -23,10 +23,10 @@ MACHINE:=$(shell uname -m)
 PROJECT_NAME:=$(shell basename $(CURDIR))
 BUILD_DIR?=./build-$(PROJECT_NAME)-$(MACHINE)-$(BUILD_TYPE)
 
-.PHONY: update format all test standalone doc modernize clean distclean
+.PHONY: update format all test standalone gcov tidy doc modernize clean distclean
 
 # the default target does just all, but neither standalone nor doc
-test:
+test: gcov
 
 clean:
 	rm -rf $(BUILD_DIR) reports/gcov/*.* build build-*
@@ -60,10 +60,15 @@ all:
 	cmake -S $@ -B $(BUILD_DIR)/$@ ${CMAKE_PRESET} -DENABLE_TEST_COVERAGE=1    # NO! -DUSE_STATIC_ANALYZER=clang-tidy CK
 	cmake --build $(BUILD_DIR)/$@
 	cmake --build $(BUILD_DIR)/$@ --target test
-	# gcovr --root . --exclude-directories test --verbose
-	gcovr -r . -s --html-details --html-title $(PROJECT_NAME) --output $(CURDIR)/reports/gcov/index.html
 	perl -i.bak -p -e 's#-W[-\w]+\b##g;' -e 's#-I($$CPM_SOURCE_CACHE)#-isystem $$1#g;' $(BUILD_DIR)/$@/compile_commands.json
-	run-clang-tidy.py -p $(BUILD_DIR)/$@ -quiet -header-filter='$(CURDIR)/.*' $(CURDIR)   # Note: only local sources! CK
+	gcovr --root . --exclude-directories test #XXX --verbose
+
+tidy: all
+	run-clang-tidy.py -p $(BUILD_DIR)/all -quiet -header-filter='$(CURDIR)/.*' $(CURDIR)   # Note: only local sources! CK
+
+gcov: all
+	gcovr -r . --exclude-directories test -s --html-title $(PROJECT_NAME) --html-detail $(CURDIR)/reports/gcov/index.html
+	perl -i.bak -pe 's#class="headerValue">./<#class="headerValue">$(PROJECT_NAME)<#g;' $(CURDIR)/reports/gcov/index.html
 
 # GenerateDocs
 doc:
