@@ -36,6 +36,7 @@ distclean: clean
 
 # update CPM.cmake
 update:
+	pip3 install jinja2 Pygments gcovr cmake_format==0.6.13 pyyaml
 	wget -q -O cmake/CPM.cmake https://github.com/cpm-cmake/CPM.cmake/releases/latest/download/get_cpm.cmake
 	wget -q -O cmake/ProjectWarningsAsErrors.cmake https://raw.githubusercontent.com/approvals/ApprovalTests.cpp/master/CMake/WarningsAsErrors.cmake
 
@@ -61,13 +62,13 @@ all:
 	cmake --build $(BUILD_DIR)/$@
 	cmake --build $(BUILD_DIR)/$@ --target test
 	perl -i.bak -p -e 's#-W[-\w]+\b##g;' -e 's#-I($$CPM_SOURCE_CACHE)#-isystem $$1#g;' $(BUILD_DIR)/$@/compile_commands.json
-	gcovr --root . --exclude-directories test #XXX --verbose
+	gcovr --root . #XXX --verbose
 
 tidy: all
 	run-clang-tidy.py -p $(BUILD_DIR)/all -quiet -header-filter='$(CURDIR)/.*' $(CURDIR)   # Note: only local sources! CK
 
 gcov: all
-	gcovr -r . --exclude-directories test -s --html-title $(PROJECT_NAME) --html-detail $(CURDIR)/reports/gcov/index.html
+	gcovr -r . --html-title $(PROJECT_NAME) --html-detail $(CURDIR)/reports/gcov/index.html
 	perl -i.bak -pe 's#class="headerValue">./<#class="headerValue">$(PROJECT_NAME)<#g;' $(CURDIR)/reports/gcov/index.html
 
 # GenerateDocs

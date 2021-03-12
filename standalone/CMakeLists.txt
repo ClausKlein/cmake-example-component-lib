@@ -10,13 +10,6 @@ include(../cmake/tools.cmake)
 
 include(../cmake/CPM.cmake)
 
-#CPMAddPackage(
-#  NAME cxxopts
-#  GITHUB_REPOSITORY jarro2783/cxxopts
-#  VERSION 2.2.0
-#  OPTIONS "CXXOPTS_BUILD_EXAMPLES Off" "CXXOPTS_BUILD_TESTS Off"
-#)
-
 CPMAddPackage(
   NAME fmt
   GIT_TAG 7.1.3
@@ -29,22 +22,21 @@ CPMAddPackage(NAME MathFunctions SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
 
 # ---- Create standalone executable ----
 
-set(sources source/main.cxx)
+add_executable(MathFunctionsCalculator source/calc.cxx)
+set_target_properties(MathFunctionsCalculator PROPERTIES CXX_STANDARD ${CMAKE_CXX_STANDARD})
+target_link_libraries(MathFunctionsCalculator MathFunctions::MathFunctions fmt::fmt)
 
-add_executable(MathFunctionsStandalone ${sources})
+add_executable(MathFunctionsStandalone source/main.cxx)
 set_target_properties(MathFunctionsStandalone PROPERTIES CXX_STANDARD ${CMAKE_CXX_STANDARD})
-
-# WORKAROUND missing ALIAS target error! CK
-#if(NOT TARGET cxxopts::cxxopts)
-#  add_library(cxxopts::cxxopts ALIAS cxxopts)
-#endif()
-
 target_link_libraries(
   MathFunctionsStandalone MathFunctions::Addition MathFunctions::SquareRoot fmt::fmt
 )
 
 # ---- run the standalone executable ----
 enable_testing()
+
+add_test(NAME MathFunctionsCalculator COMMAND MathFunctionsCalculator 2)
+
 add_test(NAME MathFunctionsStandaloneHint COMMAND MathFunctionsStandalone)
 add_test(NAME MathFunctionsStandaloneOops COMMAND MathFunctionsStandalone Oops ...)
 add_test(NAME MathFunctionsStandalone COMMAND MathFunctionsStandalone 49.0)
