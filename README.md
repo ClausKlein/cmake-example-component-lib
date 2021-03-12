@@ -28,24 +28,34 @@ downstream library) should be nothing more than:
   )
 ```
 
+
 ## Features
 
 - [Modern CMake practices](https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/)
 - [CMake for library authors: Best practice](https://crascit.com/2019/10/16/cppcon-2019-deep-cmake-for-library-authors/)
 - [Modernize C++ using clang-tidy](https://www.kdab.com/clang-tidy-part-1-modernize-source-code-using-c11c14/)
 - [CMake Importing Exporting Guilde](https://cmake.org/cmake/help/latest/guide/importing-exporting/index.html?highlight=components#adding-components)
+- [Prevents clang-tidy to check sources added with FetchContents](https://discourse.cmake.org/t/how-to-prevent-clang-tidy-to-check-sources-added-with-fetchcontents/2871)
 - Suited for single header libraries and projects of any scale
 - Clean separation of library and executable code
 - Integrated test suite
 - Continuous integration via [GitHub Actions](https://help.github.com/en/actions/)
+- Code coverage via [gcovr](https://gcovr.com)
 - Code coverage via [codecov](https://codecov.io)
-- Code formatting enforced by [clang-format](https://clang.llvm.org/docs/ClangFormat.html) and [cmake-format](https://github.com/cheshirekow/cmake_format) via [Format.cmake](https://github.com/TheLartians/Format.cmake)
+- Code formatting enforced by [clang-format](https://clang.llvm.org/docs/ClangFormat.html) and [cmake-format](https://github.com/cheshirekow/cmake_format)
 - Reproducible dependency management via [CPM.cmake](https://github.com/TheLartians/CPM.cmake)
 - Installable target with automatic versioning information and header generation via [PackageProject.cmake](https://github.com/TheLartians/PackageProject.cmake)
 - Automatic [documentation](https://thelartians.github.io/ModernCppStarter) and deployment with [Doxygen](https://www.doxygen.nl) and [GitHub Pages](https://pages.github.com)
 - Support for [sanitizer tools, and more](#additional-tools)
 
-### Tip: Use [Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+
+## Tips
+
+- Use [Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+- Use [Ninja](https://cmake.org/cmake/help/latest/generator/Ninja.html) and [ccache](https://ccache.dev) to speed up you roundtrip time
+- Use [Boost::ut ](https://boost-ext.github.io/ut/) A pure C++20 μ(micro)/Unit Testing Framework if possible
+- Try [Qt Creator](https://www.qt.io/download-open-source) as [IDE](#IDE)
+  ... or simply use [gvim](https://packages.ubuntu.com/bionic/gvim) and type `:make test`
 
 
 ## Usage
@@ -54,8 +64,6 @@ downstream library) should be nothing more than:
 
 - Use this repo [as a template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) and replace all occurrences of "MathFunctions" in the relevant `CMakeLists.txt` with the name of your project
 - Replace the source files with your own
-- For header-only libraries: see the comments in [CMakeLists.txt](CMakeLists.txt)
-- Add [your project's codecov token](https://docs.codecov.io/docs/quick-start) to your project's github secrets under `CODECOV_TOKEN`
 - Happy coding!
 
 Eventually, you can remove any unused files, such as the standalone
@@ -63,10 +71,10 @@ directory or irrelevant github workflows for your project.  Feel free to
 replace the [License](License) with one suited for your project.
 
 To cleanly separate the library and subproject code, the outer
-`CMakeList.txt` only defines the library itself while the tests and other
-subprojects are self-contained in their own directories.  During
-development it is usually convenient to [build all subprojects at
-once](#build-everything-at-once).
+[CMakeLists.txt](CMakeLists.txt) only defines the library itself while
+the tests and other subprojects are self-contained in their own
+directories.  During development it is usually convenient to [build all
+subprojects at once](#build-everything-at-once).
 
 
 ### Use the makefile wrapper on unix bash or with GVIM
@@ -109,11 +117,22 @@ To collect code coverage information, run CMake with the
 `-DENABLE_TEST_COVERAGE=1` option.
 
 
+### Generate GCC Code Coverage Report
+
+To generate or update a gcov reports/gcov/index.html
+
+`make gcov`
+
+
 ### Run clang-tidy
+
+The [.clang-tidy](.clang-tidy)
+[checks](https://clang.llvm.org/extra/clang-tidy/) supports you to write
+clean code!
 
 To check your project with _clang-tidy_ simply do
 
-`make check`
+`make tidy`
 
 
 ### Run clang-format
@@ -163,11 +182,14 @@ targets at the same time.  This is useful during development, as it
 exposes all subprojects to your IDE and avoids redundant builds of the
 library.
 
-#### Hint: Try [Qt Creator](https://www.qt.io/download-open-source) as IDE
 
-It creates the best usable results when open a project via
+## IDE
+
+Use [Qt Creator](https://www.qt.io/download-open-source) as IDE
+
+It creates the best usable results when open the project via
 [all/CMakeLists.txt](all/CMakeLists.txt).  And it supports to direct
-import a existing CMake build directory.
+import a existing CMake build directory create with:
 
 
 ```bash
@@ -187,7 +209,8 @@ build/standalone/MathFunctionsStandalone 42.0
 cmake --build build --target GenerateDocs
 ```
 
-### Additional tools
+
+## Additional tools
 
 The test and standalone subprojects include the
 [tools.cmake](cmake/tools.cmake) file which is used to import additional
@@ -284,6 +307,10 @@ As there are a lot of possible options and configurations, this is not
 (yet) in the scope of this template. See the [CPack
 documentation](https://cmake.org/cmake/help/latest/module/CPack.html) for
 more information on setting up CPack installers.
+
+> This is too much, I just want to create a singe C++ library.
+
+Perhaps the [ModernCppStarter](https://github.com/ClausKlein/ModernCppStarter)
 
 > This is too much, I just want to play with C++ code and test some libraries.
 
