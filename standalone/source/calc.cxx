@@ -1,5 +1,5 @@
 //
-// A very simple calucator
+// A very simple calculator
 //
 #include <fmt/core.h>
 #include <mathfunctions/MathFunctions.h>
