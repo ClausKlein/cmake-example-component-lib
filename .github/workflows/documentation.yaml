@@ -1,3 +1,4 @@
+---
 name: Documentation
 
 on:
@@ -22,16 +23,21 @@ jobs:
 
       - name: Install dependencies
         run: |
-          brew install doxygen graphviz
-          pip3 install jinja2 Pygments
+          brew install doxygen graphviz ninja
+          pip3 install jinja2 Pygments gcovr
 
       - name: Build
         run: |
           cmake -S documentation -B build
           cmake --build build --target GenerateDocs
 
+      - name: GCC Code Coverage Report
+        run: |
+          make gcov
+
       - name: Publish
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/doxygen/html
+          publish_dir: ./reports/gcov
+          # publish_dir: ./build/doxygen/html

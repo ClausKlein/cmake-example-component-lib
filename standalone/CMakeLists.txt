@@ -45,4 +45,7 @@ target_link_libraries(
 
 # ---- run the standalone executable ----
 enable_testing()
+add_test(NAME MathFunctionsStandaloneHint COMMAND MathFunctionsStandalone)
+add_test(NAME MathFunctionsStandaloneOops COMMAND MathFunctionsStandalone Oops ...)
 add_test(NAME MathFunctionsStandalone COMMAND MathFunctionsStandalone 49.0)
+add_test(NAME MathFunctionsStandaloneNaN COMMAND MathFunctionsStandalone -1)
