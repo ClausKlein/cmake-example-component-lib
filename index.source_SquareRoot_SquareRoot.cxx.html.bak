@@ -257,7 +257,7 @@
         <table cellpadding="1" border="0" width="100%">
           <tr>
             <td width="10%" class="headerName">Directory:</td>
-            <td width="35%" class="headerValue">cmake-example-component-lib</td>
+            <td width="35%" class="headerValue">./</td>
             <td width="5%"></td>
             <td width="15%"></td>
             <td width="10%" class="headerValue" style="text-align:right;">Exec</td>
@@ -266,7 +266,7 @@
           </tr>
           <tr>
             <td class="headerName">File:</td>
-            <td class="headerValue">source/Addition/Addition.cxx</td>
+            <td class="headerValue">source/SquareRoot/SquareRoot.cxx</td>
             <td></td>
             <td class="headerName">Lines:</td>
             <td class="headerTableEntry">1</td>
@@ -303,7 +303,7 @@
     <td align="right" class="lineno"><pre>1</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>#include &lt;mathfunctions/Addition.h></pre></td>
+    <td align="left" class="src "><pre>#include &lt;mathfunctions/SquareRoot.h></pre></td>
     </tr>
 
     <tr>
@@ -317,18 +317,32 @@
     <td align="right" class="lineno"><pre>3</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>namespace MathFunctions {</pre></td>
+    <td align="left" class="src "><pre>#include &lt;cmath></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>4</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>5</pre></td>
-    <td align="left" class="src coveredLine"><pre>  auto add(double x, double y) -> double { return x + y; }</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>5</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>namespace MathFunctions {</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>6</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>10</pre></td>
+    <td align="left" class="src coveredLine"><pre>  auto sqrt(double x) -> double { return std::sqrt(x); }</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>7</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>}  // namespace MathFunctions</pre></td>
