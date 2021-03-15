@@ -32,8 +32,8 @@ include(cmake/CPM.cmake)
 CPMAddPackage(
   NAME PackageProject.cmake
   GITHUB_REPOSITORY ClausKlein/PackageProject.cmake
-  # VERSION 1.5.1
-  GIT_TAG 43fccf1a2f8f3d8dbecd547485c2278035448171
+  # VERSION CK1.6.0
+  GIT_TAG 4ac95860ba72bb0eb324c4d63e35fb59be3bd50d
 )
 
 set(COMPONENT_TARGETS_ENABLED NO) # Note: DO not set! CK
@@ -95,9 +95,8 @@ packageProject(
   INCLUDE_DESTINATION ${INCLUDE_INSTALL_DIR}
   VERSION_HEADER ${PROJECT_VERSION_HEADER}
   EXPORT_HEADER ${PROJECT_EXPORT_HEADER}
-  COMPATIBILITY SameMajorVersion
-  # XXX DISABLE_VERSION_SUFFIX NOT YET! CK
-  DISABLE_CHECK_REQUIRED_COMPONENTS YES
+  COMPATIBILITY SameMajorVersion # XXX DISABLE_VERSION_SUFFIX NOT YET! CK
+                DISABLE_CHECK_REQUIRED_COMPONENTS YES
 )
 
 # generate the export targets for the build tree. Note: The file created by this command is specific

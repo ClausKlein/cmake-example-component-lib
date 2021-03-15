@@ -52,7 +52,8 @@ downstream library) should be nothing more than:
 ## Tips
 
 - Use [Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
-- Use [Ninja](https://cmake.org/cmake/help/latest/generator/Ninja.html) and [ccache](https://ccache.dev) to speed up you roundtrip time
+- Use [Ninja](https://cmake.org/cmake/help/latest/generator/Ninja.html)
+  and [ccache](https://ccache.dev) to speed up your round trip time
 - Use [Boost::ut ](https://boost-ext.github.io/ut/) A pure C++20 μ(micro)/Unit Testing Framework if possible
 - Try [Qt Creator](https://www.qt.io/download-open-source) as [IDE](#IDE)
   ... or simply use [gvim](https://packages.ubuntu.com/bionic/gvim) and type `:make test`
@@ -117,9 +118,10 @@ To collect code coverage information, run CMake with the
 `-DENABLE_TEST_COVERAGE=1` option.
 
 
-### Generate GCC Code Coverage Report
+### Generate a GCC Code Coverage Report
 
-To generate or update a gcov reports/gcov/index.html
+To generate or update with `gcovr` the html files
+[reports/gcov/index.html](https://clausklein.github.io/cmake-example-component-lib/):
 
 `make gcov`
 
