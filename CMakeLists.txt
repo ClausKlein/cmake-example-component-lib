@@ -32,8 +32,8 @@ include(cmake/CPM.cmake)
 CPMAddPackage(
   NAME PackageProject.cmake
   GITHUB_REPOSITORY ClausKlein/PackageProject.cmake
-  # VERSION 1.5.1
-  GIT_TAG 43fccf1a2f8f3d8dbecd547485c2278035448171
+  # VERSION CK1.6.0
+  GIT_TAG 4ac95860ba72bb0eb324c4d63e35fb59be3bd50d
 )
 
 set(COMPONENT_TARGETS_ENABLED NO) # Note: DO not set! CK
