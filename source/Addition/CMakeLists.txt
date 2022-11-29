@@ -5,7 +5,7 @@ add_library(
   Addition Addition.cxx ${NAMESPACE_HEADER_LOCATION}/${PROJECT_HEADER_LOCATION}/Addition.h
 )
 
-add_library(${PROJECT_NAMESPACE}::Addition ALIAS Addition)
+add_library(${PROJECT_NAMESPACE}::Addition ALIAS Addition) # NOTE: needed! CK
 
 # Note: for SameMajorVersion upgrade stategie
 set_target_properties(
@@ -24,7 +24,7 @@ target_include_directories(
          $<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>
 )
 
-# install the target and create export-set
+# NOTE: Need to install the target and create export-set manually! CK
 install(
   TARGETS Addition
   EXPORT ${PROJECT_NAMESPACE}Targets
@@ -41,12 +41,12 @@ install(
 #         DESTINATION ${INCLUDE_INSTALL_DIR}/${PROJECT_NAMESPACE}
 # )
 
-if(COMPONENT_TARGETS_ENABLED)
-  # generate and install export file
-  install(
-    EXPORT ${PROJECT_NAMESPACE}Targets
-    FILE ${PROJECT_NAMESPACE}AdditionTargets.cmake
-    NAMESPACE ${PROJECT_NAMESPACE}::
-    DESTINATION lib/cmake/${PROJECT_NAMESPACE}
-  )
-endif()
+# if(COMPONENT_TARGETS_ENABLED)
+#   # NOTE: generate and install export file for this target! CK
+#   install(
+#     EXPORT ${PROJECT_NAMESPACE}Targets
+#     FILE ${PROJECT_NAMESPACE}AdditionTargets.cmake
+#     NAMESPACE ${PROJECT_NAMESPACE}::
+#     DESTINATION lib/cmake/${PROJECT_NAMESPACE}
+#   )
+# endif()

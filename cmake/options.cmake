@@ -46,6 +46,7 @@ if(NOT MSVC)
     )
   endif()
 
+  option(ENABLE_TEST_COVERAGE "Enable test coverage" OFF)
   if(ENABLE_TEST_COVERAGE AND "${CMAKE_BUILD_TYPE}" STREQUAL Debug)
     add_compile_options(--coverage -O0 -g)
     add_link_options(--coverage)

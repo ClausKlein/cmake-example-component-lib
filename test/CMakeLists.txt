@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14...3.20)
+cmake_minimum_required(VERSION 3.21...3.25)
 
 project(
   MathFunctionsTests
@@ -8,7 +8,6 @@ project(
 
 # ---- Options ----
 
-option(ENABLE_TEST_COVERAGE "Enable test coverage" OFF)
 option(TEST_INSTALLED_VERSION "Test the version found by find_package" OFF)
 
 # --- Import tools ----
@@ -19,10 +18,13 @@ include(../cmake/tools.cmake)
 
 include(../cmake/CPM.cmake)
 
+CPMAddPackage("gh:TheLartians/PackageProject.cmake@1.10.0")
+
 CPMAddPackage(
   NAME ut
   GITHUB_REPOSITORY boost-ext/ut
-  GIT_TAG 1cc75c234d4005031cee581102a4a6c8b680df0a
+  GIT_TAG v1.1.9
+  OPTIONS "BOOST_UT_DISABLE_MODULE ON"
 )
 
 if(TEST_INSTALLED_VERSION)
@@ -57,10 +59,3 @@ set_target_properties(MathFunctionsTests PROPERTIES CXX_STANDARD ${CMAKE_CXX_STA
 enable_testing()
 
 add_test(NAME MathFunctionsTests COMMAND MathFunctionsTests 2.0)
-
-# ---- code coverage ----
-
-# if(ENABLE_TEST_COVERAGE AND NOT MathFunctions_FOUND)
-#   target_compile_options(MathFunctions PUBLIC -O0 -g -fprofile-arcs -ftest-coverage)
-#   target_link_options(MathFunctions PUBLIC -fprofile-arcs -ftest-coverage)
-# endif()

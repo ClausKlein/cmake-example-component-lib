@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14...3.20)
+cmake_minimum_required(VERSION 3.21...3.25)
 
 project(MathFunctionsStandalone LANGUAGES CXX)
 
@@ -12,7 +12,7 @@ include(../cmake/CPM.cmake)
 
 CPMAddPackage(
   NAME fmt
-  GIT_TAG 7.1.3
+  GIT_TAG 9.1.0
   GITHUB_REPOSITORY fmtlib/fmt # to get an installable target
   OPTIONS "FMT_INSTALL YES"
 )
@@ -36,7 +36,6 @@ target_link_libraries(
 enable_testing()
 
 add_test(NAME MathFunctionsCalculator COMMAND MathFunctionsCalculator 2)
-
 add_test(NAME MathFunctionsStandaloneHint COMMAND MathFunctionsStandalone)
 add_test(NAME MathFunctionsStandaloneOops COMMAND MathFunctionsStandalone Oops ...)
 add_test(NAME MathFunctionsStandalone COMMAND MathFunctionsStandalone 49.0)
