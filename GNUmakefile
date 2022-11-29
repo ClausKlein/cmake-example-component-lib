@@ -45,7 +45,7 @@ install:
 	cmake -S . -B $(BUILD_DIR)/$@ ${CMAKE_PRESET} -DCMAKE_INSTALL_PREFIX=$(STAGE_DIR)
 	cmake --build $(BUILD_DIR)/$@ --target $@
 	perl -i.bak -p -e 's#-W[-\w]+\b##g;' -e 's#-I($$CPM_SOURCE_CACHE)#-isystem $$1#g;' $(BUILD_DIR)/$@/compile_commands.json
-	run-clang-tidy.py -p $(BUILD_DIR)/$@ -quiet -header-filter='$(CURDIR)/.*' source # Note: only local sources! CK
+	run-clang-tidy -p $(BUILD_DIR)/$@ -quiet -header-filter='$(CURDIR)/.*' source # Note: only local sources! CK
 
 # test the library
 test: install
@@ -54,7 +54,7 @@ test: install
 	perl -i.bak -p -e 's#-W[-\w]+\b##g;' -e 's#-I($$CPM_SOURCE_CACHE)#-isystem $$1#g;' $(BUILD_DIR)/$@/compile_commands.json
 	cmake --build $(BUILD_DIR)/$@
 	cmake --build $(BUILD_DIR)/$@ --target $@
-	run-clang-tidy.py -p $(BUILD_DIR)/$@ -quiet -header-filter='$(CURDIR)/.*' test/source # Note: only local sources! CK
+	run-clang-tidy -p $(BUILD_DIR)/$@ -quiet -header-filter='$(CURDIR)/.*' test/source # Note: only local sources! CK
 
 # all together
 all:
@@ -65,7 +65,7 @@ all:
 	gcovr --root . #XXX --verbose
 
 tidy: all
-	run-clang-tidy.py -p $(BUILD_DIR)/all -quiet -header-filter='$(CURDIR)/.*' $(CURDIR)   # Note: only local sources! CK
+	run-clang-tidy -p $(BUILD_DIR)/all -quiet -header-filter='$(CURDIR)/.*' $(CURDIR)   # Note: only local sources! CK
 
 gcov: all
 	mkdir -p reports
@@ -90,5 +90,5 @@ standalone:
 
 # modernize the library sources
 modernize: standalone
-	run-clang-tidy.py -p $(BUILD_DIR)/standalone -quiet -header-filter='$(CURDIR)/.*' \
+	run-clang-tidy -p $(BUILD_DIR)/standalone -quiet -header-filter='$(CURDIR)/.*' \
 	 -checks='-*,modernize-*' -j1 -fix $(CURDIR) # Note: only local sources! CK
