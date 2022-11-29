@@ -23,7 +23,7 @@ CPMAddPackage("gh:TheLartians/PackageProject.cmake@1.10.0")
 CPMAddPackage(
   NAME ut
   GITHUB_REPOSITORY boost-ext/ut
-  GIT_TAG v1.1.9
+  GIT_TAG 5bff64aba9185d9c8b49b89d31686c037347209a # current master after v1.1.9
 )
 
 if(TEST_INSTALLED_VERSION)
