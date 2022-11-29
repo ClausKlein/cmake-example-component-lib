@@ -68,7 +68,8 @@ tidy: all
 	run-clang-tidy.py -p $(BUILD_DIR)/all -quiet -header-filter='$(CURDIR)/.*' $(CURDIR)   # Note: only local sources! CK
 
 gcov: all
-	gcovr -r . --html-title $(PROJECT_NAME) --html-detail $(CURDIR)/reports/gcov/index.html
+	mkdir -p reports
+	gcovr -r . --html-title $(PROJECT_NAME) --html-details $(CURDIR)/reports/gcov/index.html
 	perl -i.bak -pe 's#class="headerValue">./<#class="headerValue">$(PROJECT_NAME)<#g;' $(CURDIR)/reports/gcov/*.html
 
 # GenerateDocs
