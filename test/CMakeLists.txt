@@ -18,6 +18,8 @@ include(../cmake/tools.cmake)
 
 include(../cmake/CPM.cmake)
 
+CPMAddPackage("gh:TheLartians/PackageProject.cmake@1.10.0")
+
 CPMAddPackage(
   NAME ut
   GITHUB_REPOSITORY boost-ext/ut
